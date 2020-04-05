@@ -1,2 +1,2 @@
 # master
-Overview of the biostats project and various sub-tasks.
+Overview of the Machine Learning project and various sub-tasks.
