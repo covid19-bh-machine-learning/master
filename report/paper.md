@@ -4,14 +4,14 @@ tags:
   - replace with your own keywords
   - at least is recommended
 authors:
-  - name: First Last
-    orcid: 0000-0000-0000-0000
+  - name: Lukas Heumos
+    orcid: 0000-0002-8937-3457
     affiliation: 1
   - name: Second Last
     orcid: 0000-0000-0000-0000
     affiliation: 2
 affiliations:
- - name: Institution 1, address, city, country
+ - name: University of Tübingen/Quantitative Biology Center,  Auf der Morgenstelle 10, Tübingen, Germany
    index: 1
  - name: Institution 1, address, city, country
    index: 2
