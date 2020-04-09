@@ -1,8 +1,13 @@
 ---
-title: 'BioHackrXiv  template'
+title: 'Determining a novel feature-space for SARS-COV2 Sequence data'
 tags:
-  - replace with your own keywords
-  - at least is recommended
+  - Feature determination
+  - k-mer modelling
+  - word2vec
+  - machine learning
+  - epitope
+  - CoVID-19
+  - SARS-CoV-2
 authors:
   - name: Lukas Heumos
     orcid: 0000-0002-8937-3457
@@ -10,6 +15,9 @@ authors:
   - name: Ali Haider Bangash
     orcid: 0000-0002-8256-3194
     affiliation: 2
+  - name: Fotis Psomopoulos
+    orcid: 0000-0002-0222-4273
+    affiliation: 3
   - name: Second Last
     orcid: 0000-0000-0000-0000
     affiliation: 3
@@ -18,17 +26,21 @@ affiliations:
    index: 1
  - name: Shifa College of Medicine, STMU, Islamabad, Pakistan
    index: 2
+ - name: Institute of Applied Biosciences, Centre for Research and Technology Hellas, 6th km Charilaou-Thermis rd, Thessaloniki, Greece
+   index: 3  
  - name: Institution 3, address, city, country
    index: 3  
-date: 01 January 2020
+date: 10 April 2020
 bibliography: paper.bib
 ---
 
-# Introduction or Background
+# Introduction
 
-Add to this section a couple of paragraphs introducing the work done dring the BioHackathon, CodeFest, VoCamp or Sprint event. Please add references whenever needed, for instance [@Katayamaetal-2010].
+In late 2019, a previously unknown virus began spreading within the population of the Wuhan-city in the Hubei province of China [@Huang-Jan2020]. The virus, identified as a new type of coronavirus [@WHO-sitrep1], has since spread over the globe as a pandemic of an unprecedented scale [@WHO-press-pandemic,@WHO-sitrep78].
 
-Please separate paragraphs with a double line.
+Through a global effort, a number of virus samples have been fully sequenced, with the data deposed in publicly accessible repositories, such as the [SARS-CoV-2 sequences GenBank](https://www.ncbi.nlm.nih.gov/genbank/sars-cov-2-seqs/) and the [EBI Data](https://www.ebi.ac.uk/ena/pathogens/covid-19).
+
+Given the high similarity of the sequences, both at the aminoacid and the nucleotide level, a key quetsion 
 
 ## Subsection level 2
 
@@ -77,7 +89,8 @@ For citations of references, we prefer the use of parenthesis, last name and yea
 * And remember, software and data need a license for them to be used by others, no license means no clear rules so nobody could legally use a non-licensed research object, whatever that object is
 
 # Acknowledgements
-Please always remember to acknowledge the BioHackathon, CodeFest, VoCamp, Sprint or similar where this work was (partially) developed.
+
+This work was done within the [COVID-19 Biohackathon of April 2020](https://github.com/virtual-biohackathons/covid-19-bh20).
 
 # References
 
