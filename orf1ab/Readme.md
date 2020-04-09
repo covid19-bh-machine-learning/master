@@ -1,16 +1,27 @@
 # How to setup the environment:
-1. Install virtualenv package
+- Install virtualenv package
 `sudo apt install virtualenv`
 
-2. Create virtual environment
+- Create virtual environment
+
 `virtualenv your_environment_name -p python3`
 
-3. Activate the virtual environment
+- Activate the virtual environment
+
 `cd your_environment_name`
 `source bin/activate`
 
-4. Clone the git repository, cd to master
+- Clone the git repository
 
-5. Open jupyter notebook 
+`git clone https://github.com/covid19-bh-machine-learning/master.git`
+
+`cd master`
+
+- install libraries
+
+`pip install -r requirements.txt`
+
+
+- Open jupyter notebook 
 `jupyter notebook`
 
