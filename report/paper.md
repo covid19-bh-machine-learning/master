@@ -4,17 +4,22 @@ tags:
   - replace with your own keywords
   - at least is recommended
 authors:
-  - name: First Last
-    orcid: 0000-0000-0000-0000
+  - name: Lukas Heumos
+    orcid: 0000-0002-8937-3457
     affiliation: 1
+  - name: Ali Haider Bangash
+    orcid: 0000-0002-8256-3194
+    affiliation: 2
   - name: Second Last
     orcid: 0000-0000-0000-0000
-    affiliation: 2
+    affiliation: 3
 affiliations:
- - name: Institution 1, address, city, country
+ - name: University of Tübingen/Quantitative Biology Center,  Auf der Morgenstelle 10, Tübingen, Germany
    index: 1
- - name: Institution 1, address, city, country
+ - name: Shifa College of Medicine, STMU, Islamabad, Pakistan
    index: 2
+ - name: Institution 3, address, city, country
+   index: 3  
 date: 01 January 2020
 bibliography: paper.bib
 ---
