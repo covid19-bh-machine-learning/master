@@ -7,6 +7,9 @@ authors:
   - name: Lukas Heumos
     orcid: 0000-0002-8937-3457
     affiliation: 1
+  - name: Ali Haider Bangash
+    orcid: 0000-0002-8256-3194
+    affiliation: Shifa College of Medicine, STMU
   - name: Second Last
     orcid: 0000-0000-0000-0000
     affiliation: 2
