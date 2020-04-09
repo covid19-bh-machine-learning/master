@@ -11,3 +11,6 @@
 
 4. Clone the git repository
 
+5. Open jupyter notebook 
+`jupyter notebook`
+
