@@ -40,39 +40,44 @@ In late 2019, a previously unknown virus began spreading within the population o
 
 Through a global effort, a number of virus samples have been fully sequenced, with the data deposed in publicly accessible repositories, such as the [SARS-CoV-2 sequences GenBank](https://www.ncbi.nlm.nih.gov/genbank/sars-cov-2-seqs/) and the [EBI Data](https://www.ebi.ac.uk/ena/pathogens/covid-19).
 
-Given the high similarity of the sequences, both at the aminoacid and the nucleotide level, a key quetsion 
+Given the high similarity of the sequences, both at the aminoacid and the nucleotide level, a key question is how to identify interesting / discriminating features across the different sequences, so that the underling structure of the evolutionary story of the virus can be highlighted.
 
-## Subsection level 2
+In order to address this question, the Machine Learning group of the [COVID-19 Biohackathon](https://github.com/virtual-biohackathons/covid-19-bh20), defined the following tasks:
 
-Please keep sections to a maximum of three levels, even better if only two levels.
+- Identify potential features at the nucleotide level based on the k-mers (for various k)
+- Identify potential features at the aminoacid level, based on the AA frequencies (and for various word sizes)
+- Perform in-silico estimates of epitopes for COVID19
+- Identify patterns in secondary structure (e.g. vs random sequences)
 
-### Subsection level 3
+Each task, and the corresponding outputs are detailed below.
 
-Please keep sections to a maximum of three levels.
+# Methods
 
-## Tables, figures and so on
+## Potential features at the nucleotide level based on the k-mers
 
-Please remember to introduce tables (see Table 1) before they appear on the document. We recommend to center tables, formulas and figure but not the corresponding captions. Feel free to modify the table style as it better suits to your data.
+tbf -> Feature extraction methods for K-mer based clustering analys
 
-Table 1
-| Header 1 | Header 2 |
-| -------- | -------- |
-| item 1 | item 2 |
-| item 3 | item 4 |
+## Potential features at the aminoacid level, based on the AA frequencies
 
-Remember to introduce figures (see Figure 1) before they appear on the document. 
+tbf -> t-SNE analysis, word2vec
 
-![BioHackrXiv logo](./biohackrxiv.png)
- 
-Figure 1. A figure corresponding to the logo of our BioHackrXiv preprint.
+## In-silico estimates of epitopes for COVID19
 
-# Other main section on your manuscript level 1
+tbf  -> MHC estimated epitope comparisons
 
-Feel free to use numbered lists or bullet points as you need.
-* Item 1
-* Item 2
+## Identify patterns in secondary structure
 
-# Discussion and/or Conclusion
+tbf  -> Feature extraction method for RNA secondary structure comparisons. Feature selection for variables of interest. Incorporate discoveries into other projects (e.g. pangenome annotations)
+
+# Results
+
+Preliminary results include:
+
+- t-SNE analysis of the word2vec data
+- 
+
+
+# Conclusion
 
 We recommend to include some discussion or conclusion about your work. Feel free to modify the section title as it fits better to your manuscript.
 
@@ -95,3 +100,23 @@ This work was done within the [COVID-19 Biohackathon of April 2020](https://gith
 # References
 
 Leave thise section blank, create a paper.bib with all your references.
+
+
+# Notes, to be removed
+
+## Tables, figures and so on
+
+Please remember to introduce tables (see Table 1) before they appear on the document. We recommend to center tables, formulas and figure but not the corresponding captions. Feel free to modify the table style as it better suits to your data.
+
+Table 1
+| Header 1 | Header 2 |
+| -------- | -------- |
+| item 1 | item 2 |
+| item 3 | item 4 |
+
+Remember to introduce figures (see Figure 1) before they appear on the document. 
+
+![BioHackrXiv logo](./biohackrxiv.png)
+ 
+Figure 1. A figure corresponding to the logo of our BioHackrXiv preprint.
+
