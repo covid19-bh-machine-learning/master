@@ -9,7 +9,7 @@
 `cd your_environment_name`
 `source bin/activate`
 
-4. Clone the git repository
+4. Clone the git repository, cd to master
 
 5. Open jupyter notebook 
 `jupyter notebook`
