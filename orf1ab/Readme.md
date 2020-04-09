@@ -13,9 +13,9 @@
 
 - Clone the git repository
 
-`git clone https://github.com/covid19-bh-machine-learning/master.git
+`git clone https://github.com/covid19-bh-machine-learning/master.git`
 
- cd master`
+ `cd master`
 
 - install libraries
 
