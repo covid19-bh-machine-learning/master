@@ -18,6 +18,9 @@ authors:
   - name: Fotis Psomopoulos
     orcid: 0000-0002-0222-4273
     affiliation: 3
+  - name: Anastasios Togkousidis
+    orcid: 0000-0003-4306-3709
+    affiliation: 3
   - name: Second Last
     orcid: 0000-0000-0000-0000
     affiliation: 3
