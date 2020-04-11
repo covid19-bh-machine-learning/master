@@ -21,6 +21,9 @@ authors:
   - name: Anastasios Togkousidis
     orcid: 0000-0003-4306-3709
     affiliation: 3
+  - name: Phillip Davis
+    orcid: 0000-0003-3562-4836
+    affiliation: 4
   - name: Second Last
     orcid: 0000-0000-0000-0000
     affiliation: 3
@@ -31,6 +34,8 @@ affiliations:
    index: 2
  - name: Institute of Applied Biosciences, Centre for Research and Technology Hellas, 6th km Charilaou-Thermis rd, Thessaloniki, Greece
    index: 3  
+ - name: MRIGlobal, 425 Volker Boulevard, Kansas City, MO 64110, USA
+   index: 4  
  - name: Institution 3, address, city, country
    index: 3  
 date: 10 April 2020
