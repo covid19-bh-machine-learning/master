@@ -28,7 +28,7 @@ authors:
     orcid: 0000-0001-5129-6065
     affiliation: 5  
   - name: Francesco Ballesio
-    orcid: 0000-0000-0000-0000
+    orcid: 0000-0002-5892-5490
     affiliation: 5
   - name: Andrea Guarracino
     orcid: 0000-0001-9744-131X
@@ -115,6 +115,22 @@ We focused on the following pipeline, for each embedding built with these ranges
 
 The comparison between the trees built on the embeddings and the clustalOmega [@sievers_2013_clustal] tree is done to have an external validation: results should not be too different from standard phylogenetic trees but should still show variations, in order to point untracked similarities between SarsCov2 and other _coronaviridae_ 
 
+Initial results indicate that higher dimensional embeddings are better at capturing the complexity of the aminoacidic sequences in terms of the resulting tree. The best results against the clustalOmega tree are in fact obtained for the word2vec model for a k-mer length of 3, a vector size of 200, trained for 200 epochs [IMAGE REF Rob-foulds]. All subsequent analyses are related to this model.
+
+To understand how the underlying space is distributing its variability we performed a PCA up until 90% explained variance, and even if the best embedding required high dimensions (200), the majority of the variance can be found in 10 Principal components [IMAGE REF PCA]. 
+
+In parallel we performed a tSNE in 2-dimensions to have an indication on how the groups of different virus species were clustered and if any confounding effect was present (e.g. clustering for country). By plotting only those species that were present no less than 5 times we can see that SarsCov-2 clusters near the bat coronavirus, as expected[IMAGE REF TSNE]. No country-related clustering was evident [IMAGE REF TSNE COUNTRY].
+
+Those steps were necessary to ensure that the embedding space was reflecting the underlying phylogeny that is usually caught by multiple alignment methods.
+
+Finally, by using the cosine distance we built a distance tree and inspected the resulting clusters formed around Sars-Cov-2 [IMAGE REF TREE W ANNOTATION]. 
+As expected Sars-Cov-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], Bat coronavirus, Sars-Cov.
+Unexpectedly, and this is worth pointing out: Porcine Deltacoronavirus, Sparrow Deltacoronavirus, and Murine Cov.
+
+The porcine Deltacoronavirus has been seen as related to Sars-Cov in a recent study [@boley_2020_porcine], while the sparrow deltacoronavirus has been pointed out by a less recent paper [@li_2018_broad].
+
+## Discussion
+...
 
 ## In-silico estimates of epitopes for COVID19
 
