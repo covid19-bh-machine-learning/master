@@ -24,6 +24,15 @@ authors:
   - name: Phillip Davis
     orcid: 0000-0003-3562-4836
     affiliation: 4
+  - name: Marco Pietrosanto
+    orcid: 0000-0001-5129-6065
+    affiliation: 5  
+  - name: Francesco Ballesio
+    orcid: 0000-0000-0000-0000
+    affiliation: 5
+  - name: Andrea Guarracino
+    orcid: 0000-0000-0000-0000
+    affiliation: 5
   - name: Second Last
     orcid: 0000-0000-0000-0000
     affiliation: 3
@@ -36,8 +45,10 @@ affiliations:
    index: 3  
  - name: MRIGlobal, 425 Volker Boulevard, Kansas City, MO 64110, USA
    index: 4  
- - name: Institution 3, address, city, country
+ - name: University of Rome Tor Vergata, Via della Ricerca Scientifica 1, Rome, Italy
    index: 3  
+ - name: Institution 3, address, city, country
+   index: 3 
 date: 10 April 2020
 bibliography: paper.bib
 ---
@@ -75,6 +86,36 @@ In the second approach, the algorithm was applied to the total data set and, thu
 
 tbf -> t-SNE analysis, word2vec
 
+### Continuous distributed representations
+
+In the last years there have been some efforts into representing biological sequences with new paradigms, especially by following Natural Language Processing methods. Although more modern solutions are present in the world of NLP, like ELMo [@peters_2018_deep], BERT [@devlin_2018_bert], and so on, biological sequence representation still has much to explore [@kimothi_2016_distributed]. One of the most successful word embedding-based models is the word2vec model [@mikolov_2013_efficient TO PUT IN BIB FILE] for generating distributed representations of words and phrases. Some advances have been made with standard word2vec models [@asgari_2015_continuous], both for DNA [@ng_2017_dna2vec], RNA [@yi_2020_learning] and protein [@asgari_2015_prot2vec] sequences. To summarize those studies, the impact of projecting sequence data on embedded spaces is likely to reduce the complexity of the algorithms needed to solve certain tasks (_e.g._ protein family classification [@asgari_2015_prot2vec]). Moreover, this approach is promising to represent residue-level sequence contexts for potential phosphorylation sites and demonstrate its application in both general and kinase-specific phosphorylation site predictions [@xu_2018_phoscontext2vec].
+
+##TODO(missing used libraries, like gensim)
+
+The choice is therefore inspired by those works, with the following characteristics:
+
+- each protein sequence is treated as a sentence, made by overlapping words (k-mers) to incorporate some context-order information in the resulting distributed representation
+- the word size is 3, which seems to work properly to embed amino acid sequences for biological tasks [@DM-RPIs TO PUT IN BIB FILE, @yi_2020_learning]
+- we define the sequence vector as the mean of all its word vectors.
+
+With this choices we must point that the sequence vector loses the concept of k-mer order, (i.e. the same vector can be obtained by the same k-mers shuffled) **but** the overlapping k-mers should have processed that "order" information down to their representations. That is, if there is a k-mer "SAN" there will certainly by a k-mer “-SA” and a k-mer “AN-” (where "-" is any aminoacid), and this is, in our view, a way of loosely preserving the k-mer order information in the sequence vector.
+
+The data we analyzed was a collection of orf1ab AA sequences, [WHERE DO THEY COME FROM?]
+
+We focused on the following pipeline, for each embedding built with these ranges of parameters:
+  * embedding size: [10, 50, 100, 200, 300]
+  * training epochs: [5, 10, 20, 50, 100]
+
+- build a tree by using cosine distance between sequence vectors
+- compare it with the clustalOmega generated tree by means of Robinson-Foulds distance
+- choose the best embedding by referring to the aforementioned distance and explore the embedded space and the resulting tree by:
+  * analyzing the embedded space by PCA
+  * analyzing the embedded space by tSNE
+  * exploring the resulting tree both with the full embedded space and with the first Principal Components
+
+The comparison between the trees built on the embeddings and the clustalOmega [@sievers_2013_clustal TO PUT IN BIB FILE] tree is done to have an external validation: results should not be too different from standard phylogenetic trees but should still show variations, in order to point untracked similarities between SarsCov2 and other _coronaviridae_ 
+
+
 ## In-silico estimates of epitopes for COVID19
 
 tbf  -> MHC estimated epitope comparisons
@@ -87,8 +128,25 @@ tbf  -> Feature extraction method for RNA secondary structure comparisons. Featu
 
 Preliminary results include:
 
-- t-SNE analysis of the word2vec data
+- analysis of the word2vec data
 - 
+
+### Continuous distributed representations
+
+Initial results indicate that higher dimensional embeddings are better at capturing the complexity of the aminoacidic sequences in terms of the resulting tree. The best results against the clustalOmega tree are in fact obtained for the word2vec model for a k-mer length of 3, a vector size of 200, trained for 200 epochs [IMAGE REF Rob-foulds]. All subsequent analyses are related to this model.
+
+To understand how the underlying space is distributing it variability we performed a PCA up until 90% explained variance, and even if the best embedding required high dimensions (200), the majority of the variance can be found in 10 Principal components [IMAGE REF PCA]. 
+
+In parallel we performed a tSNE in 2-dimensions to have an indication on how the groups of different virus species were clustered and if any confounding effect was present (e.g. clustering for country). By plotting only those species that were present no less than 5 times we can see that SarsCov-2 clusters near the bat coronavirus, as expected[IMAGE REF TSNE]. No country-related clustering was evident [IMAGE REF TSNE COUNTRY].
+
+Those steps were necessary to ensure that the embedding space was reflecting the underlying phylogeny that is usually caught by multiple alignment methods.
+
+Finally, by using the cosine distance we built a distance tree and inspected the resulting clusters formed around Sars-Cov-2 [IMAGE REF TREE W ANNOTATION]. 
+As expected Sars-Cov-2 has as nearest neighbours: Pangolin coronavirus [https://www.nature.com/articles/s41586-020-2169-0], Bat coronavirus, Sars-Cov.
+Unexpectedly, and this is worth pointing out: Porcine Deltacoronavirus, Sparrow Deltacoronavirus, and Murine Cov.
+
+The porcine Deltacoronavirus has been seen as related to Sars-Cov in a recent study [https://wwwnc.cdc.gov/eid/article/26/2/19-0346_article TO PUT IN BIB]
+while the sparrow deltacoronavirus has been pointed out by a less recent paper [https://www.pnas.org/content/115/22/E5135 TO PUT IN BIB].
 
 
 # Conclusion
