@@ -27,4 +27,4 @@
 
 ## Dashboard
 
-![](dashboard.gif)
+![](media/dashboard.gif)
