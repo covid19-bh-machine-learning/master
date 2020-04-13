@@ -25,3 +25,6 @@
 - Open jupyter notebook 
 `jupyter notebook`
 
+## Dashboard
+
+![][/media/dashboard.gif]
