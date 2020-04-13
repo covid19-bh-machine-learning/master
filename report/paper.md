@@ -75,7 +75,6 @@ Each task, and the corresponding outputs are detailed below.
 - A dashboard for exploring orf1ab dataset.<br /> 
     - [data](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab.fasta)<br /> 
     - [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv)<br /> 
-    - [Dashboard script](https://github.com/covid19-bh-machine-learning/master/blob/master/orf1ab-pyCode/py/orf1ab_dash_board.py)<br /> 
     - [Dashboard notebook](https://github.com/covid19-bh-machine-learning/master/blob/master/orf1ab-pyCode/orf1ab_dashBoard.ipynb)<br /> 
     
 ## Potential features at the nucleotide level based on the k-mers
