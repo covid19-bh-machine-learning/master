@@ -71,7 +71,12 @@ In order to address this question, the Machine Learning group of the [COVID-19 B
 Each task, and the corresponding outputs are detailed below.
 
 # Methods
-
+## Analysis of orf1ab dataset
+- A dashboard for exploring orf1ab dataset.
+    -[data](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab.fasta)
+    -[metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv)
+    -[Dashboard script](https://github.com/covid19-bh-machine-learning/master/blob/master/orf1ab-pyCode/py/orf1ab_dash_board.py)
+    -[Dashboard notebook](https://github.com/covid19-bh-machine-learning/master/blob/master/orf1ab-pyCode/orf1ab_dashBoard.ipynb)
 ## Potential features at the nucleotide level based on the k-mers
 
 This approach focuses on the detection of k-mers that appear with high frequency in the data. The main dataset that was used for feature extraction is https://github.com/covid19-bh-machine-learning/master/blob/master/data/sars_cov_2_fixed.fasta and is actually a set of 281 genome sequences of SARS-CoV-2, each one consisting of approximately 30.000 nucleotides. The correspoding meta-data set is https://github.com/covid19-bh-machine-learning/master/blob/master/data/sars_cov_2_fixed_meta.csv and contains information about the length of each sequence, geographical location, isolation source, collection date of the sample etc.
