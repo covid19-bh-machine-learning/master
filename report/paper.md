@@ -140,16 +140,11 @@ Unexpectedly, and this is worth pointing out: Porcine Deltacoronavirus, Sparrow 
 
 The porcine Deltacoronavirus has been seen as related to Sars-Cov in a recent study [@boley_2020_porcine], while the sparrow deltacoronavirus has been pointed out by a less recent paper [@li_2018_broad].
 
-## Discussion
-...
+### MHC class I and II binding affinity prediction
 
-## In-silico estimates of epitopes for COVID19
-
-tbf  -> MHC estimated epitope comparisons
-
-## Identify patterns in secondary structure
-
-tbf  -> Feature extraction method for RNA secondary structure comparisons. Feature selection for variables of interest. Incorporate discoveries into other projects (e.g. pangenome annotations)
+An integral part of the adaptive immune system is the presentation of antigen epitopes on the cell surface. The MHC is the tissue-antigen, which T cells bind to, recognize and self-tolerate. During this process the MHC molecules bind to both, the T cell receptor and glycoproteins CD4/CD8 (cluster of differentiation) on T lymphocytes. Additionally, interactions between the variable Ig-like domain of the TCR interacts with the antigen epitope located in the peptide-binding groove of the MHC molecule to trigger T cell activation. Hence, epitopes can be used to elicit specific immune response making them suitable for vaccine design [@https://www.frontiersin.org/articles/10.3389/fimmu.2018.00826/full]. To construct an epitope based vaccine it is therefore imperative to evaluate the MHC class I or II binding affinity for a given set of peptide candidates and a given set of alleles. 
+To determine binding affinites of peptides to MHC molecules time consuming experiments such as competition experiments have to be carried out. In these experiments the peptide concentration, which leads to 50\% inhibition of a standard peptide is measured. This concentration is known as the IC50 value. MHC binding peptides are typically classified by resulting IC50 values of less than 500 nM. To allow for quick and free assessments of MHC class I and II binding affinities several machine learning based software packages have been released in recent years. All of them are based on experimentally verified databases of MHC molecule binders and non-binders, but differ in their algorithms, training datasets and accessibility [@https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4654883/].
+MHCNuggets, a MHC class I and II binding affinity predictor, is based on a deep neural network, which makes use of several long-short term memory (LSTM) units to facilitate fast and peptide length independent predictions. Moreover, the usage of transfer learning and allele clustering approaches to enable the confident prediction of rare alleles. The authors demonstrated that MHCNuggets has comparable prediction performance for both classes when compared to NetMHCPan, MHCFlurry and others, while being the fastest prediction method [@https://cancerimmunolres.aacrjournals.org/content/early/2020/02/04/2326-6066.CIR-19-0464].
 
 # Results
 
