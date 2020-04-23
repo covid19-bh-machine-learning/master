@@ -46,9 +46,9 @@ affiliations:
  - name: MRIGlobal, 425 Volker Boulevard, Kansas City, MO 64110, USA
    index: 4  
  - name: University of Rome Tor Vergata, Via della Ricerca Scientifica 1, Rome, Italy
-   index: 3  
+   index: 5
  - name: Institution 3, address, city, country
-   index: 3 
+   index: 6
 date: 10 April 2020
 bibliography: paper.bib
 ---
@@ -87,11 +87,11 @@ Each task, and the corresponding outputs are detailed below.
 
 This approach focuses on the detection of k-mers that appear with high frequency in the data. The main dataset that was used for feature extraction is https://github.com/covid19-bh-machine-learning/master/blob/master/data/sars_cov_2_fixed.fasta and is actually a set of 281 genome sequences of SARS-CoV-2, each one consisting of approximately 30.000 nucleotides. The correspoding meta-data set is https://github.com/covid19-bh-machine-learning/master/blob/master/data/sars_cov_2_fixed_meta.csv and contains information about the length of each sequence, geographical location, isolation source, collection date of the sample etc.
 
-The analysis that was conducted is an algorithmic procedure based on a pruning tree, which dymanically evaluates k-mers of different lengths and keeps those with the highest evaluation, while at the same time kmers with low evaluation are rejected. The evaluation parameter depends both on the length of each k-mer and its frequency in the data. In this way, the most significant k-mers are isolated within a very decent time and can be used as features in our data. 
+The analysis that was conducted is an algorithmic procedure based on a pruning tree, which dynamically evaluates k-mers of different lengths and keeps those with the highest evaluation, while at the same time kmers with low evaluation are rejected. The evaluation parameter depends both on the length of each k-mer and its frequency in the data. In this way, the most significant k-mers are isolated within a very decent time and can be used as features in our data. 
 
 The analysis was conducted in two different ways. In the first approach the algorithm was applied to each sequence separately. In this way, the repetitiveness of k-mers within a single sequence was examined. The data that were extracted from this analysis have been joined with the meta data in a single data matrix (https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_mata_data_merged.csv). The elements below the k-mer columns correspond to the frequency of each k-mer within a single sequence. 
 
-In the second approach, the algorithm was applied to the total data set and, thus, genome sequencies were treated as a single set. K-mers that appear with high frequency within all the  genome sequences were successfully isolated in an output k-mers set. The next step was to remove all k-mers that appeared to every sequence from this output set, in order to reduce the dimensionality of the problem. The data that were extracted from this analysis have also been joined with the meta data set in a single data matrix (https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_meta_data__fixed_merged.csv). The elements below the k-mer columns are zeros and ones. One means that the current k-mer apperars in the corresponding sequence, while zero that it doesn't, as well. 
+In the second approach, the algorithm was applied to the total data set and, thus, genome sequencies were treated as a single set. K-mers that appear with high frequency within all the genome sequences were successfully isolated in an output k-mers set. The next step was to remove all k-mers that appeared to every sequence from this output set, in order to reduce the dimensionality of the problem. The data that were extracted from this analysis have also been joined with the meta data set in a single data matrix (https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_meta_data__fixed_merged.csv). The elements below the k-mer columns are zeros and ones. One means that the current k-mer apperars in the corresponding sequence, while zero that it doesn't, as well. 
 
 ## Potential features at the aminoacid level, based on the AA frequencies
 
@@ -99,23 +99,26 @@ tbf -> t-SNE analysis, word2vec
 
 ### Continuous distributed representations
 
-In the last years there have been some efforts into representing biological sequences with new paradigms, especially by following Natural Language Processing methods. Although more modern solutions are present in the world of NLP, like ELMo [@peters_2018_deep], BERT [@devlin_2018_bert], and so on, biological sequence representation still has much to explore [@kimothi_2016_distributed]. One of the most successful word embedding-based models is the word2vec model [@mikolov_2013_efficient] for generating distributed representations of words and phrases. Some advances have been made with standard word2vec models [@asgari_2015_continuous], both for DNA [@ng_2017_dna2vec], RNA [@yi_2020_learning] and protein [@asgari_2015_prot2vec] sequences. To summarize those studies, the impact of projecting sequence data on embedded spaces is likely to reduce the complexity of the algorithms needed to solve certain tasks (_e.g._ protein family classification [@asgari_2015_prot2vec]). Moreover, this approach is promising to represent residue-level sequence contexts for potential phosphorylation sites and demonstrate its application in both general and kinase-specific phosphorylation site predictions [@xu_2018_phoscontext2vec].
+Biological sequence comparison is a well established way in inferring the relatedness of various organisms and the functional role of their components. In the last years there have been some efforts into representing biological sequences with new paradigms, especially by following Natural Language Processing methods, with the aim to capture the most meaningful information of the original sequences. Although more modern solutions are present in the world of NLP, like ELMo [@peters_2018_deep], BERT [@devlin_2018_bert], and so on, biological sequence representation still has much to explore [@kimothi_2016_distributed], especially in relation to the final task which has to be solved exploiting the new representation. One of the most successful word embedding-based models is the word2vec model [@mikolov_2013_efficient] for generating distributed representations of words and phrases. Some advances have been made with its standard application [@asgari_2015_continuous], both for DNA [@ng_2017_dna2vec], RNA [@yi_2020_learning] and protein [@asgari_2015_prot2vec] sequences. To briefly summarize those studies, the impact of projecting sequence data on embedded spaces is likely to reduce the complexity of the algorithms needed to solve certain tasks (_e.g._ protein family classification [@asgari_2015_prot2vec]). Moreover, this approach is promising to represent residue-level sequence contexts for potential phosphorylation sites and demonstrate its application in both general and kinase-specific phosphorylation site predictions [@xu_2018_phoscontext2vec].
 
-##TODO(missing used libraries, like gensim)
+[SOME PHRASE TO INTRODUCE THE PHYLOGENETICS AND WHY WE ARE PROPOSING A NEW REPRESENTATIONS, MAKING CLEAR THAT IT IS ALIGNMENT-FREE]
+Phylogenetics is the task of creating a phylogenetic tree which represents a hypothesis about the evolutionary ancestry of a set of genes, species or any other taxa. In this work we propose a continuous distributed representations for the protein sequences to create phylogenetic trees, analyzing its strengths and weaknesses in this task.
 
-The choice is therefore inspired by those works, with the following characteristics:
+Our approach is therefore inspired by those works, with the following characteristics:
 
-- each protein sequence is treated as a sentence, made by overlapping words (k-mers) to incorporate some context-order information in the resulting distributed representation
-- the word size is 3, which seems to work properly to embed amino acid sequences for biological tasks [@cheng_2019_dmrpis, @yi_2020_learning]
-- we define the sequence vector as the mean of all its word vectors.
+- each protein sequence is treated as a sentence, made by overlapping words (k-mers) to incorporate some context-order information in the resulting distributed representation;
+- the word size is 3, which seems to work properly to embed amino acid sequences for biological tasks [@cheng_2019_dmrpis, @yi_2020_learning];
+- the sequence vector is defined as the arithmetic the mean of all its word vectors.
 
 With this choices we must point that the sequence vector loses the concept of k-mer order, (i.e. the same vector can be obtained by the same k-mers shuffled) **but** the overlapping k-mers should have processed that "order" information down to their representations. That is, if there is a k-mer "SAN" there will certainly by a k-mer “-SA” and a k-mer “AN-” (where "-" is any aminoacid), and this is, in our view, a way of loosely preserving the k-mer order information in the sequence vector.
 
-The data we analyzed was a collection of orf1ab AA sequences, [WHERE DO THEY COME FROM?]
+As word2vec model, we applied the continuous bag-of-words (CBOW) word2vec architecture, a shallow, two-layer neural network, which is trained to predict the current word by using a few sorrounding context words. This model is generally faster, therefore it is the preferred choice to have a scalable solution when a large corpus will be available for training. 
 
-We focused on the following pipeline, for each embedding built with these ranges of parameters:
-  * embedding size: [10, 50, 100, 200, 300]
-  * training epochs: [5, 10, 20, 50, 100]
+The data we analyzed was a collection of orf1ab AA sequences, [WHERE DO THEY COME FROM?]. We explored the hyper-parameter space try several combination of the following hyper-parameters: k-mers size, vector space dimension, number of epochs for the training. All the experiments were performed using Gensim [@ehek_2010_software] and Scikit-learn [@scikit-learn] libraries. In particular, we focused on the following pipeline, for each embedding built with these ranges of parameters:
+
+  * embedding size: [10, 50, 100, 200, 300, 500, 1000]
+  * training epochs: [5, 10, 20, 50, 100, 200, 500, 1000]
+
 
 - build a tree by using cosine distance between sequence vectors
 - compare it with the clustalOmega generated tree by means of Robinson-Foulds distance
