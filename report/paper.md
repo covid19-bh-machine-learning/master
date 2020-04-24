@@ -7,7 +7,7 @@ tags:
   - machine learning
   - epitope
   - CoVID-19
-  - SARS-CoV-2
+  - SARS-Co-V-2
 authors:
   - name: Lukas Heumos
     orcid: 0000-0002-8937-3457
@@ -180,13 +180,7 @@ Finally, by using the cosine distance we built a distance tree and inspected the
 |:--:| 
 | *Distance tree from the best model, visualized using Interactive Tree Of Life (iTOL) ([@letunic_2019_interactive]).* |
 
-
-As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus.
-Unexpectedly, and this is worth pointing out: Porcine Deltacoronavirus, Sparrow Deltacoronavirus, and Murine Cov.
-
-The porcine Deltacoronavirus has been seen as related to Sars-Cov in a recent study [@boley_2020_porcine], while the sparrow deltacoronavirus has been pointed out by a less recent paper [@li_2018_broad].
-
-
+As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus. There are not apparent unexpected neighbours, and the most distant species from SARS-CoV-2 is the porcine Deltacoronavirus, which actually has been seen as related to SARS-Co-V in a recent study [@boley_2020_porcine]. A possible explanation for these discrepancy could be attributed to the distance metric used in the evaluation of the tree,  which not incorporate the "importance" of each node in the tree. More studies are needed to explore more sensible distance metric, and the resulting best phylogenetic trees.
 
 # Conclusion
 
