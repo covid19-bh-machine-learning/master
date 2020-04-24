@@ -174,8 +174,14 @@ No country-related clustering was evident.
 
 Those analyses were necessary to ensure that the embedding space was reflecting the underlying phylogeny that is usually caught by multiple alignment methods.
 
-Finally, by using the cosine distance we built a distance tree and inspected the resulting clusters formed around Sars-Cov-2 [IMAGE REF TREE W ANNOTATION]. 
-As expected Sars-Cov-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], Bat coronavirus, Sars-Cov.
+Finally, by using the cosine distance we built a distance tree and inspected the resulting clusters formed around SARS-CoV-2.
+
+| ![](../embeddings/word2vec/phylogenetic_tree_w2vsize_1000_epochs_100_genbank.png) | 
+|:--:| 
+| *Distance tree from the best model, visualized using Interactive Tree Of Life (iTOL) ([@letunic_2019_interactive]).* |
+
+
+As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus.
 Unexpectedly, and this is worth pointing out: Porcine Deltacoronavirus, Sparrow Deltacoronavirus, and Murine Cov.
 
 The porcine Deltacoronavirus has been seen as related to Sars-Cov in a recent study [@boley_2020_porcine], while the sparrow deltacoronavirus has been pointed out by a less recent paper [@li_2018_broad].
