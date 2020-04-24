@@ -14,7 +14,7 @@ authors:
     affiliation: 1
   - name: Ali Haider Bangash
     orcid: 0000-0002-8256-3194
-    affiliation: 2
+    affiliation: 2, 6
   - name: Fotis Psomopoulos
     orcid: 0000-0002-0222-4273
     affiliation: 3
@@ -47,7 +47,7 @@ affiliations:
    index: 4  
  - name: University of Rome Tor Vergata, Via della Ricerca Scientifica 1, Rome, Italy
    index: 5
- - name: Institution 3, address, city, country
+ - name: SYNCH, Aries Tower, Murree Rd, Rawalpindi, Pakistan
    index: 6
 date: 10 April 2020
 bibliography: paper.bib
