@@ -156,11 +156,23 @@ Initial results indicate that higher dimensional embeddings are better at captur
 
 To understand how the underlying space is distributing its variability we performed a PCA up until 90% explained variance, and even if the best embedding required high dimensions (1000), the majority of the variance can be found in 10 Principal components.
 
+| ![](../embeddings/word2vec/plots/k_3_PCA_cumsum_best_model.png) | 
+|:--:| 
+| *Principal Component Analysis of the vector-space of the best model shows that the majority of the variance lies on few principal components.* |
 
+In parallel we performed a tSNE in 2-dimensions to have an indication on how the groups of different virus species were clustered and if any confounding effect was present (e.g. clustering for country). By plotting only those species that were present no less than 5 times we can see that SARS-CoV-2 clusters near the bat coronavirus, as expected[IMAGE REF TSNE].
 
-In parallel we performed a tSNE in 2-dimensions to have an indication on how the groups of different virus species were clustered and if any confounding effect was present (e.g. clustering for country). By plotting only those species that were present no less than 5 times we can see that SarsCov-2 clusters near the bat coronavirus, as expected[IMAGE REF TSNE]. No country-related clustering was evident [IMAGE REF TSNE COUNTRY].
+| ![](../embeddings/word2vec/plots/byspecies_tsne_orf1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) | 
+|:--:| 
+| *t-distributed stochastic neighbor embedding space in 2-dimension shows expected cluters.* |
 
-Those steps were necessary to ensure that the embedding space was reflecting the underlying phylogeny that is usually caught by multiple alignment methods.
+No country-related clustering was evident.
+
+| ![](../embeddings/word2vec/plots/bygeo_gt_5_tsne_orf1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) | 
+|:--:| 
+| *t-distributed stochastic neighbor embedding space in 2-dimension confirms the absence of country as a confounding effect.* |
+
+Those analyses were necessary to ensure that the embedding space was reflecting the underlying phylogeny that is usually caught by multiple alignment methods.
 
 Finally, by using the cosine distance we built a distance tree and inspected the resulting clusters formed around Sars-Cov-2 [IMAGE REF TREE W ANNOTATION]. 
 As expected Sars-Cov-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], Bat coronavirus, Sars-Cov.
