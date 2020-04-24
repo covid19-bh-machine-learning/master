@@ -47,7 +47,7 @@ affiliations:
    index: 4  
  - name: University of Rome Tor Vergata, Via della Ricerca Scientifica 1, Rome, Italy
    index: 5
- - name: SYNCH, Aries Tower, Murree Rd, Rawalpindi, Pakistan
+ - name: SYNCH, Pakistan
    index: 6
 date: 10 April 2020
 bibliography: paper.bib
