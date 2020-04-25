@@ -154,7 +154,7 @@ text goes here
 
 | ![](../figures/orf1ab/metrics_p_r_f1.png) | 
 |:--:| 
-| *A table showing weighted averages scores for four different orf1ab amino acid sequence classification tasksat various kmer lengths.* |
+| *A table showing weighted averages scores for four different orf1ab amino acid sequence classification tasks at various kmer lengths.* |
 
 ### Continuous distributed representations
 
