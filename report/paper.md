@@ -72,7 +72,7 @@ Each task, and the corresponding outputs are detailed below.
 
 # Methods
 
-## Determination of optimal amino acid K-mer size for orf1ab feature extraction.
+## Determination of optimal amino acid k-mer size for orf1ab feature extraction.
 The SARS-CoV-2 orf1ab sequences and metadata were obtained from [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/). A processed version used in this study can be found here ([fasta](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab.fasta), [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv)). The nucleotide sequences were translated using Biopython[@10.1093/bioinformatics/btp163] package. After the translation, the amino acid sequences were fragmented into k-mers of size 1 to 9. We took up four classification tasks  (Species, Host, Geographical Location, and Extraction Source)  based on the available labeled data. To be included in the classification task, the particular label should have represented at least 20 times in the whole dataset of 2384 unique sequences by accession. 
 
 k-mers were embedded with CountVectorizer and fitted on logistic regression using the scikit-learn[@scikit-learn] package. Model performances were evaluated using a weighted average of precision, recall, and F1-score across the test data.
