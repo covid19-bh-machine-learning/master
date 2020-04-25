@@ -71,17 +71,11 @@ In order to address this question, the Machine Learning group of the [COVID-19 B
 Each task, and the corresponding outputs are detailed below.
 
 # Methods
-## Analysis of orf1ab dataset
-- A dashboard for exploring orf1ab dataset.<br /> 
-    - [data](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab.fasta)<br /> 
-    - [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv)<br /> 
-    - [Dashboard notebook](https://github.com/covid19-bh-machine-learning/master/blob/master/orf1ab-pyCode/orf1ab_dashBoard.ipynb)<br /> 
-- K-mer feature extraction at the aminoacid level, based on AA frequencies.<br /> 
-  Each dataset consists of 1 - 9-mers, and each K-mer has a corresponding `class, feature, weight` table, a `prediction` table and a classification report containing `F1, Precision, Recall` and averaged metrics for that specific classification task.
-    - [Species level classification and feature extraction results.](https://www.kaggle.com/aneeshpanoli/biohackathon-covid-ml-orf1ab-offset0-species-kmers)<br /> 
-    - [Host level classification and feature extraction results.](https://www.kaggle.com/dataset/df6dedfb9fb389432fba489bc9f9d5ed00e8c8456136f544946a049d0ddf3bb8)<br /> 
-    - [Geographic location level classification and feature extraction results.](https://www.kaggle.com/dataset/2dd97c357e93bf0c016b5dd9a43696f3bf2f41d9e2c0d568d82716e06c7084de)<br /> 
-    - [Extraction source level classification and feature extraction results.](https://www.kaggle.com/dataset/7a85f6005959cfc6caaa735bbf40baea1c8018625d8375392571df243e14da73)<br /> 
+
+## Determination of optimal amino acid k-mer size for orf1ab feature extraction.
+The SARS-CoV-2 orf1ab sequences and metadata were obtained from [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/). A processed version used in this study can be found here ([fasta](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab.fasta), [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv)). The nucleotide sequences were translated using Biopython[@10.1093/bioinformatics/btp163] package. After the translation, the amino acid sequences were fragmented into k-mers of size 1 to 9. We took up four classification tasks  (Species, Host, Geographical Location, and Extraction Source)  based on the available labeled data. To be included in the classification task, the particular label should have represented at least 20 times in the whole dataset of 2384 unique sequences by accession. 
+
+k-mers were embedded with CountVectorizer and fitted on logistic regression using the scikit-learn[@scikit-learn] package. Model performances were evaluated using a weighted average of precision, recall, and F1-score across the test data.
     
 ## Potential features at the nucleotide level based on the k-mers
 
@@ -145,6 +139,11 @@ Preliminary results include:
 - analysis of the word2vec data
 - 
 
+## A k-mer length of four is sufficient to model the distribution of orf1ab sequences.
+| ![](../figures/orf1ab/weightedf1.png) | 
+|:--:| 
+| *A line plot of weighted average F1-score for four different orf1ab amino acid sequence classification tasks (Y-axis labels) at various kmer lengths. Y-axis denotes F1-score and X-axis denotes k-mer lengths.The vertical dotted line indicates optimal k-mer length* |
+
 ### Continuous distributed representations
 
 Initial results indicate that higher dimensional embeddings are better at capturing the complexity of the aminoacidic sequences in terms of the resulting tree. The best results against the clustalOmega tree are in fact obtained for the word2vec model for a k-mer length of 3, a vector size of 1000, trained for 100 epochs (fig. All subsequent analyses are related to this model.
@@ -193,6 +192,18 @@ And maybe you want to add a sentence or two on how you plan to continue. Please 
 For citations of references, we prefer the use of parenthesis, last name and year. If you use a citation manager, Elsevier – Harvard or American Psychological Association (APA) will work. If you are referencing web pages, software or so, please do so in the same way. Whenever possible, add authors and year. We have included a couple of citations along this document for you to get the idea. Please remember to always add DOI whenever available, if not possible, please provide alternative URLs. You will end up with an alphabetical order list by authors’ last name.
 
 # Jupyter notebooks, GitHub repositories and data repositories
+## Analysis of orf1ab dataset
+- A dashboard for exploring orf1ab dataset.<br /> 
+    - [data](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab.fasta)<br /> 
+    - [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv)<br /> 
+    - [Dashboard notebook](https://github.com/covid19-bh-machine-learning/master/blob/master/orf1ab-pyCode/orf1ab_dashBoard.ipynb)<br /> 
+- K-mer feature extraction at the aminoacid level, based on AA frequencies.<br /> 
+  Each dataset consists of 1 - 9-mers, and each K-mer has a corresponding `class, feature, weight` table, a `prediction` table and a classification report containing `F1, Precision, Recall` and averaged metrics for that specific classification task.
+    - [Species level classification and feature extraction results.](https://www.kaggle.com/aneeshpanoli/biohackathon-covid-ml-orf1ab-offset0-species-kmers)<br /> 
+    - [Host level classification and feature extraction results.](https://www.kaggle.com/dataset/df6dedfb9fb389432fba489bc9f9d5ed00e8c8456136f544946a049d0ddf3bb8)<br /> 
+    - [Geographic location level classification and feature extraction results.](https://www.kaggle.com/dataset/2dd97c357e93bf0c016b5dd9a43696f3bf2f41d9e2c0d568d82716e06c7084de)<br /> 
+    - [Extraction source level classification and feature extraction results.](https://www.kaggle.com/dataset/7a85f6005959cfc6caaa735bbf40baea1c8018625d8375392571df243e14da73)<br /> 
+    
 
 * Please add a list here
 * Make sure you let us know which of these correspond to Jupyter notebooks. Although not supported yet, we plan to add features for them
