@@ -142,7 +142,13 @@ Preliminary results include:
 ## A k-mer length of four is sufficient to model the distribution of orf1ab sequences.
 | ![](../figures/orf1ab/weightedf1.png) | 
 |:--:| 
-| *A line plot of weighted average F1-score for four different orf1ab amino acid sequence classification tasks (Y-axis labels) at various kmer lengths. Y-axis denotes F1-score and X-axis denotes k-mer lengths.The vertical dotted line indicates optimal k-mer length* |
+| *A line plot of weighted average F1-score for four different orf1ab amino acid sequence classification tasks (Y-axis labels) at various kmer lengths. Y-axis denotes F1-score and X-axis denotes k-mer lengths.The vertical dotted line indicates optimal k-mer length.* |
+
+text goes here
+
+| ![](../figures/orf1ab/metrics_p_r_f1.png) | 
+|:--:| 
+| *A table showing weighted averages scores for four different orf1ab amino acid sequence classification tasksat various kmer lengths.* |
 
 ### Continuous distributed representations
 
