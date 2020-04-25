@@ -139,6 +139,11 @@ Preliminary results include:
 - analysis of the word2vec data
 - 
 
+## A k-mer length of four is sufficient to model the distribution of orf1ab sequences.
+| ![](../figures/orf1ab/weightedf1.png) | 
+|:--:| 
+| *A line plot of weighted average F1-score for four different orf1ab amino acid sequence classification tasks (Y-axis labels) at various kmer lengths. Y-axis denotes F1-score and X-axis denotes k-mer lengths.The vertical dotted line indicates optimal k-mer length* |
+
 ### Continuous distributed representations
 
 Initial results indicate that higher dimensional embeddings are better at capturing the complexity of the aminoacidic sequences in terms of the resulting tree. The best results against the clustalOmega tree are in fact obtained for the word2vec model for a k-mer length of 3, a vector size of 1000, trained for 100 epochs (fig. All subsequent analyses are related to this model.
