@@ -33,9 +33,13 @@ authors:
   - name: Andrea Guarracino
     orcid: 0000-0001-9744-131X
     affiliation: 5
+  - name: Aneesh Panoli
+    orcid: 0000-0002-4906-3622
+    affiliation: 7
   - name: Second Last
     orcid: 0000-0000-0000-0000
     affiliation: 3
+   
 affiliations:
  - name: University of Tübingen/Quantitative Biology Center,  Auf der Morgenstelle 10, Tübingen, Germany
    index: 1
@@ -49,6 +53,8 @@ affiliations:
    index: 5
  - name: SYNCH, Pakistan
    index: 6
+ - name: Insight Data Science, 500 3rd St, San Francisco, CA 94107, USA
+   index: 7
 date: 10 April 2020
 bibliography: paper.bib
 ---
