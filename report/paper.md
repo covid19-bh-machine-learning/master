@@ -9,40 +9,37 @@ tags:
   - CoVID-19
   - SARS-Co-V-2
 authors:
-  - name: Lukas Heumos
-    orcid: 0000-0002-8937-3457
-    affiliation: 1
+  - name: Francesco Ballesio
+    orcid: 0000-0002-5892-5490
+    affiliation: 5
   - name: Ali Haider Bangash
     orcid: 0000-0002-8256-3194
     affiliation: 2, 6
+  - name: Didier Barradas-Bautista
+    orcid: 0000-0002-6464-6607
+    affiliation: 8
+  - name: Phillip Davis
+    orcid: 0000-0003-3562-4836
+    affiliation: 4
+  - name: Andrea Guarracino
+    orcid: 0000-0001-9744-131X
+    affiliation: 5
+  - name: Lukas Heumos
+    orcid: 0000-0002-8937-3457
+    affiliation: 1
+  - name: Aneesh Panoli
+    orcid: 0000-0002-4906-3622
+    affiliation: 7
+  - name: Marco Pietrosanto
+    orcid: 0000-0001-5129-6065
+    affiliation: 5
   - name: Fotis Psomopoulos
     orcid: 0000-0002-0222-4273
     affiliation: 3
   - name: Anastasios Togkousidis
     orcid: 0000-0003-4306-3709
     affiliation: 3
-  - name: Phillip Davis
-    orcid: 0000-0003-3562-4836
-    affiliation: 4
-  - name: Marco Pietrosanto
-    orcid: 0000-0001-5129-6065
-    affiliation: 5  
-  - name: Francesco Ballesio
-    orcid: 0000-0002-5892-5490
-    affiliation: 5
-  - name: Andrea Guarracino
-    orcid: 0000-0001-9744-131X
-    affiliation: 5
-  - name: Aneesh Panoli
-    orcid: 0000-0002-4906-3622
-    affiliation: 7
-  - name: Didier Barradas-Bautista
-    orcid: 0000-0002-6464-6607
-    affiliation: 8
-  - name: Second Last
-    orcid: 0000-0000-0000-0000
-    affiliation: 3
-   
+
 affiliations:
  - name: University of Tübingen/Quantitative Biology Center,  Auf der Morgenstelle 10, Tübingen, Germany
    index: 1
@@ -61,11 +58,21 @@ affiliations:
  - name: King Abdullah University of Science and Technology, Thuwal ,Saudi Arabia
    index: 8
 
-date: 10 April 2020
+date: 26 April 2020
 bibliography: paper.bib
 ---
 
-# Introduction
+# Abstract
+
+**Motivation:** The end of 2019 came with the emergence of a previously unknown virus, identified as a new type of coronavirus, and has since spread over the globe as a pandemic of an unprecedented scale. Through a global effort, a number of virus samples have been fully sequenced, with the data deposed in publicly accessible repositories. Given the high similarity of the sequences, both at the aminoacid and the nucleotide level, a key question is how to identify interesting / discriminating features across the different sequences, so that the underling structure of the evolutionary story of the virus can be highlighted. In this work we present our efforts in addressing this issue, through the systematic application of Machine Learning methods towards meaningful feature extraction.
+
+**Results:** We applied a range of methods, in order to; identify the optimal word (k-mer) size for aminoacid patterns; identify k-mers features at the nucleotide level that have predictive value; construct continuous distributed representations for protein sequences in order to create phylogenetic trees in an alignment-free manner; and predict MHC class I and II binding affinity.
+
+**Availability:** All data, code and results are available under permissive licenses (CC-BY or MIT) under the team GitHub repository [here](https://github.com/covid19-bh-machine-learning/master)
+
+**Contact:** **??? we should specify one or two emails here**
+
+# 1. Introduction
 
 In late 2019, a previously unknown virus began spreading within the population of the Wuhan-city in the Hubei province of China [@Huang-Jan2020]. The virus, identified as a new type of coronavirus [@WHO-sitrep1], has since spread over the globe as a pandemic of an unprecedented scale [@WHO-press-pandemic,@WHO-sitrep78].
 
@@ -75,35 +82,53 @@ Given the high similarity of the sequences, both at the aminoacid and the nucleo
 
 In order to address this question, the Machine Learning group of the [COVID-19 Biohackathon](https://github.com/virtual-biohackathons/covid-19-bh20), defined the following tasks:
 
-- Identify potential features at the nucleotide level based on the k-mers (for various k)
-- Identify potential features at the aminoacid level, based on the AA frequencies (and for various word sizes)
-- Perform in-silico estimates of epitopes for COVID19
-- Identify patterns in secondary structure (e.g. vs random sequences)
+- Identify potential features at the nucleotide level based on the k-mers, for various _k_ values.
+- Identify potential features at the aminoacid level, based on the AA frequencies, across various word sizes.
+- Perform in-silico estimates of epitopes for COVID19.
+- Identify patterns in secondary structure, compared to patterns evident in random sequences.
 
 Each task, and the corresponding outputs are detailed below.
 
-# Methods
 
-## Determination of optimal amino acid k-mer size for orf1ab feature extraction.
-The SARS-CoV-2 orf1ab sequences and metadata were obtained from [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/). A processed version used in this study can be found here ([fasta](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab.fasta), [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv)). The nucleotide sequences were translated using Biopython[@10.1093/bioinformatics/btp163] package. After the translation, the amino acid sequences were fragmented into k-mers of size 1 to 9. We took up four classification tasks  (Species, Host, Geographical Location, and Extraction Source)  based on the available labeled data. To be included in the classification task, the particular label should have represented at least 20 times in the whole dataset of 2384 unique sequences by accession. 
+# 2. Approach
 
-k-mers were embedded with CountVectorizer and fitted on logistic regression using the scikit-learn[@scikit-learn] package. Model performances were evaluated using a weighted average of precision, recall, and F1-score across the test data.
-    
-## Potential features at the nucleotide level based on the k-mers
+## 2.1. Data pre-Processing
 
-This approach focuses on the detection of k-mers that appear with high frequency in the data. The main dataset that was used for feature extraction is https://github.com/covid19-bh-machine-learning/master/blob/master/data/sars_cov_2_fixed.fasta and is actually a set of 281 genome sequences of SARS-CoV-2, each one consisting of approximately 30.000 nucleotides. The correspoding meta-data set is https://github.com/covid19-bh-machine-learning/master/blob/master/data/sars_cov_2_fixed_meta.csv and contains information about the length of each sequence, geographical location, isolation source, collection date of the sample etc.
+We used several different publicly available resources as input for this study. Specifically:
 
-The analysis that was conducted is an algorithmic procedure based on a pruning tree, which dynamically evaluates k-mers of different lengths and keeps those with the highest evaluation, while at the same time kmers with low evaluation are rejected. The evaluation parameter depends both on the length of each k-mer and its frequency in the data. In this way, the most significant k-mers are isolated within a very decent time and can be used as features in our data. 
+- SARS-CoV-2 ORF1ab gene sequences and metadata for all _betacoronaviridae_ were obtained from [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/).
+- SARS-CoV-2 (COVID19) full assembly nucleotide sequences that have been identified in Humnas were retrieved from [GenBank](https://www.ncbi.nlm.nih.gov/genbank/sars-cov-2-seqs/)
 
-The analysis was conducted in two different ways. In the first approach the algorithm was applied to each sequence separately. In this way, the repetitiveness of k-mers within a single sequence was examined. The data that were extracted from this analysis have been joined with the meta data in a single data matrix (https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_mata_data_merged.csv). The elements below the k-mer columns correspond to the frequency of each k-mer within a single sequence. 
+The processed version of all _betacoronaviridae_ sequences used in this study can be found here ([fasta](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_ORF1ab.fasta), [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_ORF1ab_meta.csv)). The nucleotide sequences were translated using Biopython[@10.1093/bioinformatics/btp163] package.
 
-In the second approach, the algorithm was applied to the total data set and, thus, genome sequencies were treated as a single set. K-mers that appear with high frequency within all the genome sequences were successfully isolated in an output k-mers set. The next step was to remove all k-mers that appeared to every sequence from this output set, in order to reduce the dimensionality of the problem. The data that were extracted from this analysis have also been joined with the meta data set in a single data matrix (https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_meta_data__fixed_merged.csv). The elements below the k-mer columns are zeros and ones. One means that the current k-mer apperars in the corresponding sequence, while zero that it doesn't, as well. 
+The processed version of all human virus sequences can be found [here](https://github.com/covid19-bh-machine-learning/master/blob/master/data/sars_cov_2_fixed.fasta) and comprises of a set of 281 genome sequences of SARS-CoV-2, each one approximately 30,000 nucleotides in length. The corresponding meta-data file is [here](https://github.com/covid19-bh-machine-learning/master/blob/master/data/sars_cov_2_fixed_meta.csv) and contains information about the length of each sequence, geographical location, isolation source, collection date of the sample etc.
 
-## Potential features at the aminoacid level, based on the AA frequencies
+## 2.2 Scope
 
-tbf -> t-SNE analysis, word2vec
+In order to identify interesting features across the target sequences, and investigate their usefulness as potential predictors, we applied a range of methods:
+1. Identification of optimal word (k-mer) size for aminoacid patterns
+2. Identification of potential k-mers features at the nucleotide level
+3. Continuous distributed representations for protein sequences to create phylogenetic trees in an alignment-free manner
+4. MHC class I and II binding affinity prediction
 
-### Continuous distributed representations
+
+# 3. Methods
+
+Each of these methods is described in more detail in the following sections.
+
+## 3.1 Determination of optimal amino acid word size for ORF1ab feature extraction.
+
+Using the processed version of all _betacoronaviridae_ SARS-CoV-2 ORF1ab sequences, the amino acid sequences were fragmented into words ranging from 1 to 9 in size. From within the available meta-data, we selected four fields as potential classification targets; Species, Host, Geographical Location, and Extraction Source. In order for a field to be included as a classification target, the particular label must have a representation of at least 20 within the entire dataset of 2,384 unique, by accession ID, sequences. The produced words were embedded with `CountVectorizer` and fitted on logistic regression using the scikit-learn[@scikit-learn] package. Model performances were evaluated using a weighted average of precision, recall, and F1-score across the test data.
+
+## 3.2 Potential features at the nucleotide level based on the k-mers
+
+This approach focuses on the detection of k-mers that appear with high frequency in the data. The main dataset that was used for feature extraction is the set of 281 human SARS-CoV-2 virus sequences. The analysis that was conducted is an algorithmic procedure based on a pruning tree, which dynamically evaluates k-mers of different lengths and keeps those with the highest evaluation, while at the same time k-mers with low evaluation are rejected. The evaluation parameter depends both on the length of each k-mer and its frequency in the data. In this way, the most significant k-mers are isolated within a very decent time and can be used as features in our data.
+
+The analysis was conducted in two different ways:
+- In the first approach the algorithm was applied to each sequence separately. In this way, the repetitiveness of k-mers within a single sequence was examined. The data that were extracted from this analysis have been joined with the meta data in a [single data matrix](https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_mata_data_merged.csv). The elements below the k-mer columns correspond to the frequency of each k-mer within a single sequence.
+- In the second approach, the algorithm was applied to the total data set and, thus, genome sequences were treated as a single set. K-mers that appear with high frequency within all the genome sequences were successfully isolated in an output k-mers set. The next step was to remove all k-mers that appeared to every sequence from this output set, in order to reduce the dimensionality of the problem. The data that were extracted from this analysis have also been joined with the meta data set in a [single data matrix](https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_meta_data__fixed_merged.csv). The elements below the k-mer columns are zeros and ones, where 1 indicates that the current k-mer appears in the corresponding sequence, while 0 indicates absence.
+
+## 3.3 Continuous distributed representations for protein sequences to create phylogenetic trees in an alignment-free manner
 
 Biological sequence comparison is a well established way of inferring the relatedness of various organisms and the functional role of their components. In the last years there have been some efforts into representing biological sequences with new paradigms, especially by following Natural Language Processing methods, with the aim to capture the most meaningful information of the original sequences. Although more modern solutions are present in the world of NLP, like ELMo [@peters_2018_deep], BERT [@devlin_2018_bert], and so on, biological sequence representation still has much to explore [@kimothi_2016_distributed], especially in relation to the addressed task which has to be solved exploiting the new representation. One of the most successful word embedding-based models is the word2vec model [@mikolov_2013_efficient], for generating distributed representations of words. Some advances have been made with its standard application [@asgari_2015_continuous], both for DNA [@ng_2017_dna2vec], RNA [@yi_2020_learning] and protein [@asgari_2015_prot2vec] sequences. To briefly summarize those studies, the impact of projecting sequence data on embedded spaces is likely to reduce the complexity of the algorithms needed to solve certain tasks (_e.g._ protein family classification [@asgari_2015_prot2vec]). Moreover, this approach is promising to represent residue-level sequence contexts for potential phosphorylation sites and demonstrate its application in both general and kinase-specific phosphorylation site predictions [@xu_2018_phoscontext2vec].
 
@@ -120,7 +145,7 @@ With this choices we must point that the sequence vector loses the concept of k-
 As word2vec models, two architecture are available: continuous bag-of-words (CBOW) and skip gram. These models are shallow,
 two-layer neural networks that are trained to reconstruct semantic contexts of words. The CBOW model is trained to predict the current word by using a few sorrounding context words. On the other hand, skip-gram uses the current word to predict the sorrounding context words. In this work we applied the CBOW architecture, which is generally faster, therefore it is the preferred choice to have a scalable solution when a large corpus will be available for training. Importantly, the skip-gram architecture, in addition to result in a greater computational load for training the models, did not lead to significantly better models in our task (results not shown).
 
-The data we analyzed was a collection of orf1ab AA sequences from the NCBI , as previously mentioned [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/)[metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv). We explored the hyper-parameter space trying several combinations of the following hyper-parameters: k-mers size, vector space dimension, number of epochs for the training.
+The data we analyzed was a collection of ORF1ab AA sequences from the NCBI , as previously mentioned [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/) and [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_ORF1ab_meta.csv). We explored the hyper-parameter space trying several combinations of the following hyper-parameters: k-mers size, vector space dimension, number of epochs for the training.
 
   * embedding size: [3, 4]
   * embedding size: [10, 50, 100, 200, 300, 500, 1000]
@@ -137,124 +162,125 @@ All the experiments were performed using Gensim [@ehek_2010_software] and Scikit
 
 The comparison between the trees built on the embeddings and the clustalOmega tree is done to have an external validation: results should not be too different from standard phylogenetic trees but should still show variations, in order to point untracked similarities between SARS-CoV-2 and other _coronaviridae_.
 
+## 3.4 MHC class I and II binding affinity prediction
 
-### MHC class I and II binding affinity prediction
+An integral part of the adaptive immune system is the presentation of antigen epitopes on the cell surface. The MHC is the tissue-antigen, which T cells bind to, recognize and self-tolerate. During this process the MHC molecules bind to both, the T cell receptor and glycoproteins CD4/CD8 (cluster of differentiation) on T lymphocytes. Additionally, interactions between the variable Ig-like domain of the TCR interacts with the antigen epitope located in the peptide-binding groove of the MHC molecule to trigger T cell activation. Hence, epitopes can be used to elicit specific immune response making them suitable for vaccine design [@https://www.frontiersin.org/articles/10.3389/fimmu.2018.00826/full]. To construct an epitope based vaccine it is therefore imperative to evaluate the MHC class I or II binding affinity for a given set of peptide candidates and a given set of alleles.
 
-An integral part of the adaptive immune system is the presentation of antigen epitopes on the cell surface. The MHC is the tissue-antigen, which T cells bind to, recognize and self-tolerate. During this process the MHC molecules bind to both, the T cell receptor and glycoproteins CD4/CD8 (cluster of differentiation) on T lymphocytes. Additionally, interactions between the variable Ig-like domain of the TCR interacts with the antigen epitope located in the peptide-binding groove of the MHC molecule to trigger T cell activation. Hence, epitopes can be used to elicit specific immune response making them suitable for vaccine design [@https://www.frontiersin.org/articles/10.3389/fimmu.2018.00826/full]. To construct an epitope based vaccine it is therefore imperative to evaluate the MHC class I or II binding affinity for a given set of peptide candidates and a given set of alleles. 
-To determine binding affinites of peptides to MHC molecules time consuming experiments such as competition experiments have to be carried out. In these experiments the peptide concentration, which leads to 50\% inhibition of a standard peptide is measured. This concentration is known as the IC50 value. MHC binding peptides are typically classified by resulting IC50 values of less than 500 nM. To allow for quick and free assessments of MHC class I and II binding affinities several machine learning based software packages have been released in recent years. All of them are based on experimentally verified databases of MHC molecule binders and non-binders, but differ in their algorithms, training datasets and accessibility [@https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4654883/].
+To determine binding affinities of peptides to MHC molecules time consuming experiments such as competition experiments have to be carried out. In these experiments the peptide concentration, which leads to 50\% inhibition of a standard peptide is measured. This concentration is known as the IC50 value. MHC binding peptides are typically classified by resulting IC50 values of less than 500 nM. To allow for quick and free assessments of MHC class I and II binding affinities several machine learning based software packages have been released in recent years. All of them are based on experimentally verified databases of MHC molecule binders and non-binders, but differ in their algorithms, training datasets and accessibility [@https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4654883/].
+
 MHCNuggets, a MHC class I and II binding affinity predictor, is based on a deep neural network, which makes use of several long-short term memory (LSTM) units to facilitate fast and peptide length independent predictions. Moreover, the usage of transfer learning and allele clustering approaches to enable the confident prediction of rare alleles. The authors demonstrated that MHCNuggets has comparable prediction performance for both classes when compared to NetMHCPan, MHCFlurry and others, while being the fastest prediction method [@https://cancerimmunolres.aacrjournals.org/content/early/2020/02/04/2326-6066.CIR-19-0464].
-MHCNuggets was applied within the EpitopePredict framework [@https://github.com/dmnfarrell/epitopepredict] using the predefined broad_coverage_mhc1 (26 HLA alleles providing broad coverage) and human_common_mhc2 (11 most prevalent HLA-DR alleles worldwide) allele sets for class I and II respectively on a set of 7773 spike proteins of common corona virus including SARS-CoV-2. 
+MHCNuggets was applied within the EpitopePredict framework [@https://github.com/dmnfarrell/epitopepredict] using the predefined broad_coverage_mhc1 (26 HLA alleles providing broad coverage) and human_common_mhc2 (11 most prevalent HLA-DR alleles worldwide) allele sets for class I and II respectively on a set of 7773 spike proteins of common corona virus including SARS-CoV-2.
 
-# Results
+# 4. Results and Discussion
 
 Preliminary results include:
 
-## A k-mer length of four is sufficient to model the distribution of orf1ab sequences.
-| ![](../figures/orf1ab/weightedf1.png) | 
-|:--:| 
-| *A line plot of weighted average F1-score for four different orf1ab amino acid sequence classification tasks (Y-axis labels) at various kmer lengths. Y-axis denotes F1-score and X-axis denotes k-mer lengths.The vertical dotted line indicates optimal k-mer length.* |
+## 4.1 A k-mer length of four is sufficient to model the distribution of ORF1ab sequences.
+| ![](../figures/ORF1ab/weightedf1.png) |
+|:--:|
+| *A line plot of weighted average F1-score for four different ORF1ab amino acid sequence classification tasks (Y-axis labels) at various kmer lengths. Y-axis denotes F1-score and X-axis denotes k-mer lengths.The vertical dotted line indicates optimal k-mer length.* |
 
-We obtained the weighted averaged F1-score in different context of the data to explore the use of k-mer lengths to extract features from the orf1ab aminoacid sequences for classification tasks. The plot shows that the species and host context are highly separablabe using aminoacid sequence. Geolocation has the best F1-scores at two and four k-mers. The isolation source context also shows there are differences on sequences that four k-mer lenght captures better. A four k-mer length presented the optimal scores to classify the test data on the different chosen context in combination.  
+We obtained the weighted averaged F1-score in different context of the data to explore the use of k-mer lengths to extract features from the ORF1ab aminoacid sequences for classification tasks. The plot shows that the species and host context are highly separable using aminoacid sequence. Geolocation has the best F1-scores at two and four k-mers. The isolation source context also shows there are differences on sequences that four k-mer length captures better. A four k-mer length presented the optimal scores to classify the test data on the different chosen context in combination.  
 
-| ![](../figures/orf1ab/metrics_p_r_f1.png) | 
-|:--:| 
-| *A table showing weighted averages scores for four different orf1ab amino acid sequence classification tasks at various kmer lengths.* |
+| ![](../figures/ORF1ab/metrics_p_r_f1.png) |
+|:--:|
+| *A table showing weighted averages scores for four different ORF1ab amino acid sequence classification tasks at various kmer lengths.* |
 
-This table shows the weighted average metrics across the test data for four classification task depending on the context. 
+This table shows the weighted average metrics across the test data for four classification task depending on the context.
 
-### Continuous distributed representations results
+## 4.2 Nucleotide k-mer features as potential predictors
+
+| ![](../figures/clusteringKmers.png) |
+|:--:|
+| *A heatmap of the kmer-based features across the COVID19 sequences, annotated both by GEO and Date. Rows and columns were clustered using ward.D2. Sequence clusters (y-axis) where produced by applying a tree cut-off at 10 clusters.* |
+
+Using the [single data matrix](https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_meta_data__fixed_merged.csv) representation of the k-mer-based feature, we applied hierarchical clustering across both sequences and features. As shown in the figure above, there is a distinct clustering of sequences - notably, the reference sequence (_AccID: NC_045512_) is clustered together with several other sequences, but at the same time, there are a few singletons as outliers, that should be investigated further.
+
+Additionally, it is equally important to note that in this analysis all derived features were utilized. However, it is evident that the feature variance (column) is very limited, which implies that the corresponding set of predictors will be significantly smaller.
+
+
+## 4.3 Continuous distributed representations results
 
 Initial results indicate that higher dimensional embeddings are better at capturing the complexity of the aminoacidic sequences in terms of the resulting tree. The best results against the clustalOmega tree are in fact obtained for the word2vec model for a k-mer length of 3, a vector size of 1000, trained for 100 epochs. All subsequent analyses are related to this model. In addition, we briefly investigated the robustness of the method by analyzing the second-best model and all the following results were maintained (data not shown):
 
-
-| ![](../embeddings/word2vec/plots/best_embedding_w2v_k3.png) | 
-|:--:| 
+| ![](../embeddings/word2vec/plots/best_embedding_w2v_k3.png) |
+|:--:|
 | *Heatmap showing the Robinson-Foulds distance between the trees build on the embeddings and the clustalOmega tree for all the hyper-parameter combinations performed.* |
 
 To understand how the underlying space is distributing its variability we performed a PCA up until 90% explained variance, and even if the best embedding required high dimensions (1000), the majority of the variance can be found in 10 Principal components.
 
-| ![](../embeddings/word2vec/plots/k_3_PCA_cumsum_best_model.png) | 
-|:--:| 
+| ![](../embeddings/word2vec/plots/k_3_PCA_cumsum_best_model.png) |
+|:--:|
 | *Principal Component Analysis of the vector-space of the best model shows that the majority of the variance lies on few principal components.* |
 
 In parallel we performed a tSNE in 2-dimensions to have an indication on how the groups of different virus species were clustered and if any confounding effect was present (e.g. clustering for country). By plotting only those species that were present no less than 5 times we can see that SARS-CoV-2 clusters near the bat coronavirus, as expected.
 
-| ![](../embeddings/word2vec/plots/byspecies_tsne_orf1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) | 
-|:--:| 
+| ![](../embeddings/word2vec/plots/byspecies_tsne_ORF1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) |
+|:--:|
 | *t-distributed stochastic neighbor embedding space in 2-dimension shows expected cluters.* |
 
 No country-related clustering was evident.
 
-| ![](../embeddings/word2vec/plots/bygeo_gt_5_tsne_orf1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) | 
-|:--:| 
+| ![](../embeddings/word2vec/plots/bygeo_gt_5_tsne_ORF1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) |
+|:--:|
 | *t-distributed stochastic neighbor embedding space in 2-dimension confirms the absence of country as a confounding effect.* |
 
 Those analyses were necessary to ensure that the embedding space was reflecting the underlying phylogeny that is usually caught by multiple alignment methods.
 
 Finally, by using the cosine distance we built a distance tree and inspected the resulting clusters formed around SARS-CoV-2.
 
-| ![](../embeddings/word2vec/phylogenetic_tree_w2vsize_1000_epochs_100_genbank.png) | 
-|:--:| 
+| ![](../embeddings/word2vec/phylogenetic_tree_w2vsize_1000_epochs_100_genbank.png) |
+|:--:|
 | *Distance tree from the best model, visualized using Interactive Tree Of Life (iTOL) ([@letunic_2019_interactive]).* |
 
 As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus. Apparently, no unexpected neighbours are present, and the most distant species from SARS-CoV-2 is the porcine Deltacoronavirus, which actually has been seen as related to SARS-Co-V in a recent study [@boley_2020_porcine]. A possible explanation for these discrepancy could be attributed to the distance metric used in the evaluation of the tree,  which does not incorporate the "importance" of each node in the tree. More studies are needed to explore more sensible distance metric, and the resulting best phylogenetic trees.
 
-# Conclusion
+## 4.4 MHC class I and II binding affinity prediction
 
-We recommend to include some discussion or conclusion about your work. Feel free to modify the section title as it fits better to your manuscript.
+The analysis of potential epitopes is still on-going. However, by applying an RNA secondary structure "bag-of-words" model, and when genome position is part of the feature mode, there is a small number of word structures that have non-zero coefficients. It would be interesting to see whether the corresponding structures overlap directly with the ATRs or if they are interpolated between them.
 
-### Continuous distributed representations
+Regarding a reduced alphabet amino acid linear model, there are a few strong predictors, in terms of coefficient. As an example, the `VSKLVK` pattern, which exhibited the strongest coefficient, appears in 194 human pathogen coronaviruses and in only 1 non-human coronavirus, which was a Feline coronavirus  DQ848678.1.
+
+# 5. Conclusion
+
+Based on the analysis so far, some broad conclusions can be derived.
+
+## Using constructed sequence features as a predictor set
+
+All utilized methods produced promising results; species and host context are highly separable using aminoacid sequence, there are unique nucleotide-based k-mers that can be potentially used as additiona predictors in a classification scheme, and the application of a "bag-of-words" model across RNA secondary structures leads to a small number of word structures that have non-zero coefficients.
+
+## Continuous distributed representations
 
 The alignment-free approach shows promising features, including the ability to mirror the standard alignment methods in recognizing the nearest neighbours of a long sequence. The ideal behaviour was to be halfway between the classic phylogenetic trees and new information, and the tree distance used to assess the best model is crucial at this step. The Robinson-Foulds distance may have been too generic to grasp the details needed to be used as an objective function (the best model in this work is the one which minimizes the RF distance), and while _easier_ features are present, like the nearness to SARS-Co-V, bat and pangolin, more subtle similarities are still not caught.
 The reason for this, in our opinion, should be searched in the human made choices (_e.g._ objective functions and hyperparameter search strategies), not in the method itself, which has yielded promising results, mirroring classical results with an alignment-free approach.
 
-# Future work
-And maybe you want to add a sentence or two on how you plan to continue. Please keep reading to learn about citations and references.
+## Future work
 
-For citations of references, we prefer the use of parenthesis, last name and year. If you use a citation manager, Elsevier – Harvard or American Psychological Association (APA) will work. If you are referencing web pages, software or so, please do so in the same way. Whenever possible, add authors and year. We have included a couple of citations along this document for you to get the idea. Please remember to always add DOI whenever available, if not possible, please provide alternative URLs. You will end up with an alphabetical order list by authors’ last name.
+This report reflect the work initiated within the [COVID-19 Biohackathon of April 2020](https://github.com/virtual-biohackathons/covid-19-bh20) and mostly performed during the event itself. However, there are several interesting outcomes, and the authors are committed in further pursuing them. Specifically:
+- the report will be considered for a submission to a conference
+- the code produced in the context of this effort will continue to be developed, aiming for a full automated toolkit for feature extraction.
 
-# Jupyter notebooks, GitHub repositories and data repositories
-## Analysis of orf1ab dataset
-- A dashboard for exploring orf1ab dataset.<br /> 
-    - [data](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab.fasta)<br /> 
-    - [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv)<br /> 
-    - [Dashboard notebook](https://github.com/covid19-bh-machine-learning/master/blob/master/orf1ab-pyCode/orf1ab_dashBoard.ipynb)<br /> 
-- K-mer feature extraction at the aminoacid level, based on AA frequencies.<br /> 
+# GitHub repository, Jupyter notebooks, tools and data repositories
+
+## GitHub repository
+
+All the work presented here is available in our [GitHub repository](https://github.com/covid19-bh-machine-learning/master).
+
+## Analysis of ORF1ab dataset
+- A dashboard for exploring ORF1ab dataset.<br />
+    - [data](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_ORF1ab.fasta)<br />
+    - [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_ORF1ab_meta.csv)<br />
+    - [Dashboard notebook](https://github.com/covid19-bh-machine-learning/master/blob/master/ORF1ab-pyCode/ORF1ab_dashBoard.ipynb)<br />
+- K-mer feature extraction at the aminoacid level, based on AA frequencies.<br />
   Each dataset consists of 1 - 9-mers, and each K-mer has a corresponding `class, feature, weight` table, a `prediction` table and a classification report containing `F1, Precision, Recall` and averaged metrics for that specific classification task.
-    - [Species level classification and feature extraction results.](https://www.kaggle.com/aneeshpanoli/biohackathon-covid-ml-orf1ab-offset0-species-kmers)<br /> 
-    - [Host level classification and feature extraction results.](https://www.kaggle.com/dataset/df6dedfb9fb389432fba489bc9f9d5ed00e8c8456136f544946a049d0ddf3bb8)<br /> 
-    - [Geographic location level classification and feature extraction results.](https://www.kaggle.com/dataset/2dd97c357e93bf0c016b5dd9a43696f3bf2f41d9e2c0d568d82716e06c7084de)<br /> 
-    - [Extraction source level classification and feature extraction results.](https://www.kaggle.com/dataset/7a85f6005959cfc6caaa735bbf40baea1c8018625d8375392571df243e14da73)<br /> 
-    
+    - [Species level classification and feature extraction results.](https://www.kaggle.com/aneeshpanoli/biohackathon-covid-ml-ORF1ab-offset0-species-kmers)<br />
+    - [Host level classification and feature extraction results.](https://www.kaggle.com/dataset/df6dedfb9fb389432fba489bc9f9d5ed00e8c8456136f544946a049d0ddf3bb8)<br />
+    - [Geographic location level classification and feature extraction results.](https://www.kaggle.com/dataset/2dd97c357e93bf0c016b5dd9a43696f3bf2f41d9e2c0d568d82716e06c7084de)<br />
+    - [Extraction source level classification and feature extraction results.](https://www.kaggle.com/dataset/7a85f6005959cfc6caaa735bbf40baea1c8018625d8375392571df243e14da73)<br />
 
-* Please add a list here
-* Make sure you let us know which of these correspond to Jupyter notebooks. Although not supported yet, we plan to add features for them
-* And remember, software and data need a license for them to be used by others, no license means no clear rules so nobody could legally use a non-licensed research object, whatever that object is
 
 # Acknowledgements
 
 This work was done within the [COVID-19 Biohackathon of April 2020](https://github.com/virtual-biohackathons/covid-19-bh20).
 
 # References
-
-Leave thise section blank, create a paper.bib with all your references.
-
-
-# Notes, to be removed
-
-## Tables, figures and so on
-
-Please remember to introduce tables (see Table 1) before they appear on the document. We recommend to center tables, formulas and figure but not the corresponding captions. Feel free to modify the table style as it better suits to your data.
-
-Table 1
-| Header 1 | Header 2 |
-| -------- | -------- |
-| item 1 | item 2 |
-| item 3 | item 4 |
-
-Remember to introduce figures (see Figure 1) before they appear on the document. 
-
-![BioHackrXiv logo](./biohackrxiv.png)
- 
-Figure 1. A figure corresponding to the logo of our BioHackrXiv preprint.
-
