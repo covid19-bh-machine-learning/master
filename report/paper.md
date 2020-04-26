@@ -118,7 +118,7 @@ Our approach is inspired by previous works cited above, with the following chara
 With this choices we must point that the sequence vector loses the concept of k-mer order, (i.e. the same vector can be obtained by the same k-mers shuffled) **but** the overlapping k-mers should have processed that "order" information down to their representations. That is, if there is a k-mer "SAN" there will certainly by a k-mer “-SA” and a k-mer “AN-” (where "-" is any aminoacid), and this is, in our view, a way of loosely preserving the k-mer order information in the sequence vector.
 
 As word2vec models, two architecture are available: continuous bag-of-words (CBOW) and skip gram. These models are shallow,
-two-layer neural networks that are trained to reconstruct semantic contexts of words. The CBOW model is trained to predict the current word by using a few sorrounding context words. On the other hand, skip-gram uses the current word to predict the sorrounding context words. In this work we applied the CBOW architecture, which is generally faster, therefore it is the preferred choice to have a scalable solution when a large corpus will be available for training. Importantly, the skip-gram architecture, in addition to result in a greater computational load for training the models, did not lead to significantly better results.
+two-layer neural networks that are trained to reconstruct semantic contexts of words. The CBOW model is trained to predict the current word by using a few sorrounding context words. On the other hand, skip-gram uses the current word to predict the sorrounding context words. In this work we applied the CBOW architecture, which is generally faster, therefore it is the preferred choice to have a scalable solution when a large corpus will be available for training. Importantly, the skip-gram architecture, in addition to result in a greater computational load for training the models, did not lead to significantly better models in our task (result not shown).
 
 The data we analyzed was a collection of orf1ab AA sequences from the NCBI , as previously mentioned [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/)[metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv). We explored the hyper-parameter space trying several combinations of the following hyper-parameters: k-mers size, vector space dimension, number of epochs for the training.
 
@@ -177,7 +177,7 @@ To understand how the underlying space is distributing its variability we perfor
 |:--:| 
 | *Principal Component Analysis of the vector-space of the best model shows that the majority of the variance lies on few principal components.* |
 
-In parallel we performed a tSNE in 2-dimensions to have an indication on how the groups of different virus species were clustered and if any confounding effect was present (e.g. clustering for country). By plotting only those species that were present no less than 5 times we can see that SARS-CoV-2 clusters near the bat coronavirus, as expected[IMAGE REF TSNE].
+In parallel we performed a tSNE in 2-dimensions to have an indication on how the groups of different virus species were clustered and if any confounding effect was present (e.g. clustering for country). By plotting only those species that were present no less than 5 times we can see that SARS-CoV-2 clusters near the bat coronavirus, as expected.
 
 | ![](../embeddings/word2vec/plots/byspecies_tsne_orf1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) | 
 |:--:| 
