@@ -36,6 +36,9 @@ authors:
   - name: Aneesh Panoli
     orcid: 0000-0002-4906-3622
     affiliation: 7
+  - name: Didier Barradas-Bautista
+    orcid: 0000-0002-6464-6607
+    affiliation: 8
   - name: Second Last
     orcid: 0000-0000-0000-0000
     affiliation: 3
@@ -55,6 +58,9 @@ affiliations:
    index: 6
  - name: Insight Data Science, 500 3rd St, San Francisco, CA 94107, USA
    index: 7
+ - name: King Abdullah University of Science and Technology, Thuwal ,Saudi Arabia
+   index: 8
+
 date: 10 April 2020
 bibliography: paper.bib
 ---
@@ -113,7 +119,7 @@ With this choices we must point that the sequence vector loses the concept of k-
 
 As word2vec model, we applied the continuous bag-of-words (CBOW) word2vec architecture, a shallow, two-layer neural network, which is trained to predict the current word by using a few sorrounding context words. This model is generally faster, therefore it is the preferred choice to have a scalable solution when a large corpus will be available for training. 
 
-The data we analyzed was a collection of orf1ab AA sequences, [WHERE DO THEY COME FROM?]. We explored the hyper-parameter space trying several combinations of the following hyper-parameters: k-mers size, vector space dimension, number of epochs for the training.
+The data we analyzed was a collection of orf1ab AA sequences from the NCBI , as previously mentioned [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/)[metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv). We explored the hyper-parameter space trying several combinations of the following hyper-parameters: k-mers size, vector space dimension, number of epochs for the training.
 
   * embedding size: [3, 4]
   * embedding size: [10, 50, 100, 200, 300, 500, 1000]
@@ -150,11 +156,13 @@ Preliminary results include:
 |:--:| 
 | *A line plot of weighted average F1-score for four different orf1ab amino acid sequence classification tasks (Y-axis labels) at various kmer lengths. Y-axis denotes F1-score and X-axis denotes k-mer lengths.The vertical dotted line indicates optimal k-mer length.* |
 
-text goes here
+We obtained the weighted averaged F1-score in different context of the data to explore the use of k-mer lengths to extract features from the orf1ab aminoacid sequences for classification tasks. The plot shows that the species and host context are highly separablabe using aminoacid sequence. Geolocation has the best F1-scores at two and four k-mers. The isolation source context also shows there are differences on sequences that four k-mer lenght captures better. A four k-mer length presented the optimal scores to classify the test data on the different chosen context in combination.  
 
 | ![](../figures/orf1ab/metrics_p_r_f1.png) | 
 |:--:| 
 | *A table showing weighted averages scores for four different orf1ab amino acid sequence classification tasks at various kmer lengths.* |
+
+This table shows the weighted average metrics across the test data for four classification task depending on the context. 
 
 ### Continuous distributed representations
 
