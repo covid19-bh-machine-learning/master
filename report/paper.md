@@ -178,13 +178,13 @@ The resulting binding affinities were used to for clustering using UMAP [@https:
 Preliminary results include:
 
 ## 4.1 A k-mer length of four is sufficient to model the distribution of ORF1ab sequences.
-| ![](../figures/ORF1ab/weightedf1.png) |
+| ![](../figures/orf1ab/weightedf1.png) |
 |:--:|
 | *A line plot of weighted average F1-score for four different ORF1ab amino acid sequence classification tasks (Y-axis labels) at various kmer lengths. Y-axis denotes F1-score and X-axis denotes k-mer lengths.The vertical dotted line indicates optimal k-mer length.* |
 
 We obtained the weighted averaged F1-score in different context of the data to explore the use of k-mer lengths to extract features from the ORF1ab aminoacid sequences for classification tasks. The plot shows that the species and host context are highly separable using aminoacid sequence. Geolocation has the best F1-scores at two and four k-mers. The isolation source context also shows there are differences on sequences that four k-mer length captures better. A four k-mer length presented the optimal scores to classify the test data on the different chosen context in combination.  
 
-| ![](../figures/ORF1ab/metrics_p_r_f1.png) |
+| ![](../figures/orf1ab/metrics_p_r_f1.png) |
 |:--:|
 | *A table showing weighted averages scores for four different ORF1ab amino acid sequence classification tasks at various kmer lengths.* |
 
