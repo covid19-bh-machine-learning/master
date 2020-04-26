@@ -152,7 +152,7 @@ def get_dashboard():
     )
 
     dropdown_values = widgets.Dropdown()
-    df_columns = ['Release_Date', 'Species', 'Length', 'Geo_Location',
+    df_columns = ['Accession','Release_Date', 'Species', 'Length', 'Geo_Location',
            'Host', 'Isolation_Source', 'Collection_Date', 'GenBank_Title']
     dropdown_columns = widgets.Dropdown(options = df_columns)
     dropdown_columns1 = widgets.Dropdown(options = df_columns)
