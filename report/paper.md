@@ -242,12 +242,12 @@ Finally, by using the cosine distance we built a distance tree and inspected the
 |:--:|
 | *Distance tree from the best model, visualized using Interactive Tree Of Life (iTOL) ([@letunic_2019_interactive]).* |
 
-As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus. There are not apparent unexpected neighbours, and the most distant species from SARS-CoV-2 is the porcine Deltacoronavirus, which actually has been seen as related to SARS-Co-V in a recent study [@boley_2020_porcine]. A possible explanation for these discrepancy could be attributed to the distance metric used in the evaluation of the tree,  which not incorporate the "importance" of each node in the tree. More studies are needed to explore more sensible distance metric, and the resulting best phylogenetic trees.
+As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus. There are not apparent unexpected neighbours, and the most distant species from SARS-CoV-2 is the porcine Deltacoronavirus, which actually has been seen as related to SARS-Co-V in a recent study [@boley_2020_porcine]. A possible explanation for this discrepancy could be attributed to the distance metric used in the evaluation of the tree,  which does not incorporate the "importance" of each node in the tree. More studies are needed to explore a more sensible distance metric, and the resulting best phylogenetic trees.
 
 
 ## 4.4 Epitope predictions reveal distinct clusters for protein types
 
-Out of 3730 sequences of the common corona virus sequences dataset, with an average nucleotide sequence length of 414, MHCnuggets identified 323 epitopes as putative MHC class I binders. 
+Out of 3730 sequences of the common corona virus sequences dataset, with an average AA sequence length of 414, MHCnuggets identified 323 epitopes as putative MHC class I binders. 
 
 | ![](../epitope-clustering/plots/allele_epitope_count.png) |
 |:--:|
@@ -257,7 +257,21 @@ Out of 3730 sequences of the common corona virus sequences dataset, with an aver
 |:--:|
 | *ic50 distribution for putative binding MHC class I epitopes per allele.* |
 
-JAMES ADD SOME STUFF HERE AND LET'S CONNECT IT
+The space of predicted epitopes and IC50 values were explored with UMAP clustering. For this purpose, an approach analagous to one hot encoding was used. For each of the original 3730 sequences a vector was generated with length equal to the number of distinct (predicted) allele-epitope pairs. As with one hot encoding, a 0 was used to indicate that a given allele-epitope was not predicted for the sequence. However, instead of using a 1 to indicate the prediction of an allele-epitope pair for a given sequence, the inverse of the IC50 value was used (1/IC50). This was done to include some information about predicted binding affinities. Future work could expand on this by using more direct representations of predicted immunogenicity and screening out epitopes resembling self-peptides.
+
+The UMAP clustering of the predicted epitope space yielded some interesting results that warrant further investigation. In particular, it suggested very little within-species varation of the immnune-presentation of envelope and membrane proteins.
+
+| ![](../epitope-clustering/plots/umap_envelope_protein.png) |
+|:--:|
+| *UMAP clustering of envelope proteins* |
+
+On the other hand, it suggests a great deal of variation in the immune-presentation of the spike proteins, even within species.
+
+| ![](../epitope-clustering/plots/umap_spike_protein.png) |
+|:--:|
+| *UMAP clustering of spike proteins* |
+
+If confirmed these results would have implications on potential immunotherapies as well as the effectiveness of subunit vaccines against within-species variants of the virus.
 
 # 5. Conclusion
 
