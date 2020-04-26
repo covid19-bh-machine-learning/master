@@ -105,9 +105,9 @@ tbf -> t-SNE analysis, word2vec
 
 ### Continuous distributed representations
 
-Biological sequence comparison is a well established way in inferring the relatedness of various organisms and the functional role of their components. In the last years there have been some efforts into representing biological sequences with new paradigms, especially by following Natural Language Processing methods, with the aim to capture the most meaningful information of the original sequences. Although more modern solutions are present in the world of NLP, like ELMo [@peters_2018_deep], BERT [@devlin_2018_bert], and so on, biological sequence representation still has much to explore [@kimothi_2016_distributed], especially in relation to the final task which has to be solved exploiting the new representation. One of the most successful word embedding-based models is the word2vec model [@mikolov_2013_efficient] for generating distributed representations of words and phrases. Some advances have been made with its standard application [@asgari_2015_continuous], both for DNA [@ng_2017_dna2vec], RNA [@yi_2020_learning] and protein [@asgari_2015_prot2vec] sequences. To briefly summarize those studies, the impact of projecting sequence data on embedded spaces is likely to reduce the complexity of the algorithms needed to solve certain tasks (_e.g._ protein family classification [@asgari_2015_prot2vec]). Moreover, this approach is promising to represent residue-level sequence contexts for potential phosphorylation sites and demonstrate its application in both general and kinase-specific phosphorylation site predictions [@xu_2018_phoscontext2vec].
+Biological sequence comparison is a well established way of inferring the relatedness of various organisms and the functional role of their components. In the last years there have been some efforts into representing biological sequences with new paradigms, especially by following Natural Language Processing methods, with the aim to capture the most meaningful information of the original sequences. Although more modern solutions are present in the world of NLP, like ELMo [@peters_2018_deep], BERT [@devlin_2018_bert], and so on, biological sequence representation still has much to explore [@kimothi_2016_distributed], especially in relation to the addressed task which has to be solved exploiting the new representation. One of the most successful word embedding-based models is the word2vec model [@mikolov_2013_efficient], for generating distributed representations of words. Some advances have been made with its standard application [@asgari_2015_continuous], both for DNA [@ng_2017_dna2vec], RNA [@yi_2020_learning] and protein [@asgari_2015_prot2vec] sequences. To briefly summarize those studies, the impact of projecting sequence data on embedded spaces is likely to reduce the complexity of the algorithms needed to solve certain tasks (_e.g._ protein family classification [@asgari_2015_prot2vec]). Moreover, this approach is promising to represent residue-level sequence contexts for potential phosphorylation sites and demonstrate its application in both general and kinase-specific phosphorylation site predictions [@xu_2018_phoscontext2vec].
 
-Phylogenetics is the task of creating a phylogenetic tree which represents a hypothesis about the evolutionary ancestry of a set of genes, species or any other taxa. Many tree inference methods have been proposed and the current state-of-the-art approach is to perform tree inference through a two-step process of multiple sequence alignment (MSA) followed by statistical tree inference [@felsenstein_1988_phylogenies]. In this work we propose the use of continuous distributed representations for the protein sequences to create phylogenetic trees in an alignment-free manner, analyzing its strengths and weaknesses for this aim.
+Phylogenetics is the task of creating a phylogenetic tree which represents a hypothesis about the evolutionary ancestry of a set of genes, species or any other _taxa_. Many tree inference methods have been proposed and the current state-of-the-art approach is to perform tree inference through a two-step process of multiple sequence alignment (MSA) followed by statistical tree inference [@felsenstein_1988_phylogenies]. In this work we propose the use of continuous distributed representations for protein sequences to create phylogenetic trees in an alignment-free manner, analyzing its strengths and weaknesses for this aim.
 
 Our approach is inspired by previous works cited above, with the following characteristics:
 
@@ -118,7 +118,7 @@ Our approach is inspired by previous works cited above, with the following chara
 With this choices we must point that the sequence vector loses the concept of k-mer order, (i.e. the same vector can be obtained by the same k-mers shuffled) **but** the overlapping k-mers should have processed that "order" information down to their representations. That is, if there is a k-mer "SAN" there will certainly by a k-mer “-SA” and a k-mer “AN-” (where "-" is any aminoacid), and this is, in our view, a way of loosely preserving the k-mer order information in the sequence vector.
 
 As word2vec models, two architecture are available: continuous bag-of-words (CBOW) and skip gram. These models are shallow,
-two-layer neural networks that are trained to reconstruct semantic contexts of words. The CBOW model is trained to predict the current word by using a few sorrounding context words. On the other hand, skip-gram uses the current word to predict the sorrounding context words. In this work we applied the CBOW architecture, which is generally faster, therefore it is the preferred choice to have a scalable solution when a large corpus will be available for training. Importantly, the skip-gram architecture, in addition to result in a greater computational load for training the models, did not lead to significantly better models in our task (result not shown).
+two-layer neural networks that are trained to reconstruct semantic contexts of words. The CBOW model is trained to predict the current word by using a few sorrounding context words. On the other hand, skip-gram uses the current word to predict the sorrounding context words. In this work we applied the CBOW architecture, which is generally faster, therefore it is the preferred choice to have a scalable solution when a large corpus will be available for training. Importantly, the skip-gram architecture, in addition to result in a greater computational load for training the models, did not lead to significantly better models in our task (results not shown).
 
 The data we analyzed was a collection of orf1ab AA sequences from the NCBI , as previously mentioned [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/)[metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_orf1ab_meta.csv). We explored the hyper-parameter space trying several combinations of the following hyper-parameters: k-mers size, vector space dimension, number of epochs for the training.
 
@@ -133,7 +133,7 @@ All the experiments were performed using Gensim [@ehek_2010_software] and Scikit
 - choose the best embedding by referring to the aforementioned distance, exploring the embedded space and the resulting tree by:
   * analyzing the embedded space by PCA
   * analyzing the embedded space by tSNE
-  * exploring the resulting tree both with the full embedded space and with the first Principal Components
+  * exploring the resulting tree both with the full embedded space
 
 The comparison between the trees built on the embeddings and the clustalOmega tree is done to have an external validation: results should not be too different from standard phylogenetic trees but should still show variations, in order to point untracked similarities between SARS-CoV-2 and other _coronaviridae_.
 
@@ -164,12 +164,12 @@ This table shows the weighted average metrics across the test data for four clas
 
 ### Continuous distributed representations results
 
-Initial results indicate that higher dimensional embeddings are better at capturing the complexity of the aminoacidic sequences in terms of the resulting tree. The best results against the clustalOmega tree are in fact obtained for the word2vec model for a k-mer length of 3, a vector size of 1000, trained for 100 epochs (fig. All subsequent analyses are related to this model.
+Initial results indicate that higher dimensional embeddings are better at capturing the complexity of the aminoacidic sequences in terms of the resulting tree. The best results against the clustalOmega tree are in fact obtained for the word2vec model for a k-mer length of 3, a vector size of 1000, trained for 100 epochs. All subsequent analyses are related to this model. In addition, we briefly investigated the robustness of the method by analyzing the second-best model and all the following results were maintained (data not shown):
 
 
 | ![](../embeddings/word2vec/plots/best_embedding_w2v_k3.png) | 
 |:--:| 
-| *Heatmap reporting for all the hyper-parameter combinations performed the Robinson-Foulds distance between the trees build on the embeddings and the clustalOmega tree for all the hyper-parameter combinations performed.* |
+| *Heatmap showing the Robinson-Foulds distance between the trees build on the embeddings and the clustalOmega tree for all the hyper-parameter combinations performed.* |
 
 To understand how the underlying space is distributing its variability we performed a PCA up until 90% explained variance, and even if the best embedding required high dimensions (1000), the majority of the variance can be found in 10 Principal components.
 
@@ -197,14 +197,18 @@ Finally, by using the cosine distance we built a distance tree and inspected the
 |:--:| 
 | *Distance tree from the best model, visualized using Interactive Tree Of Life (iTOL) ([@letunic_2019_interactive]).* |
 
-As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus. There are not apparent unexpected neighbours, and the most distant species from SARS-CoV-2 is the porcine Deltacoronavirus, which actually has been seen as related to SARS-Co-V in a recent study [@boley_2020_porcine]. A possible explanation for these discrepancy could be attributed to the distance metric used in the evaluation of the tree,  which not incorporate the "importance" of each node in the tree. More studies are needed to explore more sensible distance metric, and the resulting best phylogenetic trees.
+As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus. Apparently, no unexpected neighbours are present, and the most distant species from SARS-CoV-2 is the porcine Deltacoronavirus, which actually has been seen as related to SARS-Co-V in a recent study [@boley_2020_porcine]. A possible explanation for these discrepancy could be attributed to the distance metric used in the evaluation of the tree,  which does not incorporate the "importance" of each node in the tree. More studies are needed to explore more sensible distance metric, and the resulting best phylogenetic trees.
 
 # Conclusion
 
 We recommend to include some discussion or conclusion about your work. Feel free to modify the section title as it fits better to your manuscript.
 
-# Future work
+### Continuous distributed representations
 
+The alignment-free approach shows promising features, including the ability to mirror the standard alignment methods in recognizing the nearest neighbours of a long sequence. The ideal behaviour was to be halfway between the classic phylogenetic trees and new information, and the tree distance used to assess the best model is crucial at this step. The Robinson-Foulds distance may have been too generic to grasp the details needed to be used as an objective function (the best model in this work is the one which minimizes the RF distance), and while _easier_ features are present, like the nearness to SARS-Co-V, bat and pangolin, more subtle similarities are still not caught.
+The reason for this, in our opinion, should be searched in the human made choices (_e.g._ objective functions and hyperparameter search strategies), not in the method itself, which has yielded promising results, mirroring classical results with an alignment-free approach.
+
+# Future work
 And maybe you want to add a sentence or two on how you plan to continue. Please keep reading to learn about citations and references.
 
 For citations of references, we prefer the use of parenthesis, last name and year. If you use a citation manager, Elsevier – Harvard or American Psychological Association (APA) will work. If you are referencing web pages, software or so, please do so in the same way. Whenever possible, add authors and year. We have included a couple of citations along this document for you to get the idea. Please remember to always add DOI whenever available, if not possible, please provide alternative URLs. You will end up with an alphabetical order list by authors’ last name.
