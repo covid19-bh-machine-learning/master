@@ -148,9 +148,6 @@ MHCNuggets was applied within the EpitopePredict framework [@https://github.com/
 
 Preliminary results include:
 
-- analysis of the word2vec data
-- 
-
 ## A k-mer length of four is sufficient to model the distribution of orf1ab sequences.
 | ![](../figures/orf1ab/weightedf1.png) | 
 |:--:| 
@@ -164,7 +161,7 @@ We obtained the weighted averaged F1-score in different context of the data to e
 
 This table shows the weighted average metrics across the test data for four classification task depending on the context. 
 
-### Continuous distributed representations
+### Continuous distributed representations results
 
 Initial results indicate that higher dimensional embeddings are better at capturing the complexity of the aminoacidic sequences in terms of the resulting tree. The best results against the clustalOmega tree are in fact obtained for the word2vec model for a k-mer length of 3, a vector size of 1000, trained for 100 epochs (fig. All subsequent analyses are related to this model.
 
