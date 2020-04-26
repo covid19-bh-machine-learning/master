@@ -240,12 +240,19 @@ Finally, by using the cosine distance we built a distance tree and inspected the
 As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus. There are not apparent unexpected neighbours, and the most distant species from SARS-CoV-2 is the porcine Deltacoronavirus, which actually has been seen as related to SARS-Co-V in a recent study [@boley_2020_porcine]. A possible explanation for these discrepancy could be attributed to the distance metric used in the evaluation of the tree,  which not incorporate the "importance" of each node in the tree. More studies are needed to explore more sensible distance metric, and the resulting best phylogenetic trees.
 
 
-## 4.4 MHC class I and II binding affinity prediction
+## 4.4 Epitope predictions reveal distinct clusters for protein types
 
-The analysis of potential epitopes is still on-going. However, by applying an RNA secondary structure "bag-of-words" model, and when genome position is part of the feature mode, there is a small number of word structures that have non-zero coefficients. It would be interesting to see whether the corresponding structures overlap directly with the ATRs or if they are interpolated between them.
+Out of 3730 sequences of the common corona virus sequences dataset, with an average nucleotide sequence length of 414, MHCnuggets identified 323 epitopes as putative MHC class I binders. 
 
-Regarding a reduced alphabet amino acid linear model, there are a few strong predictors, in terms of coefficient. As an example, the `VSKLVK` pattern, which exhibited the strongest coefficient, appears in 194 human pathogen coronaviruses and in only 1 non-human coronavirus, which was a Feline coronavirus  DQ848678.1.
+| ![](../epitope-clustering/plots/allele_epitope_count.png) |
+|:--:|
+| *Number of putative MHC class I binders per allele. Alleles HLA-A*01:01, HLA-A*02:01, HLA-A*02:03, HLA-A*03:01, HLA-A*24:02, HLA-A*26:01, HLA-A*68:02, HLA-B*44:03, HLA-B*35:01, HLA-B*51:01 and HLA-B*57:01 did not have any predicted binders. * |
 
+| ![](../epitope-clustering/plots/allele_ic50_distribution.png) |
+|:--:|
+| *ic50 distribution for putative binding MHC class I epitopes per allele.* |
+
+JAMES ADD SOME STUFF HERE AND LET'S CONNECT IT
 
 # 5. Conclusion
 
@@ -259,12 +266,6 @@ All utilized methods produced promising results; species and host context are hi
 
 The alignment-free approach shows promising features, including the ability to mirror the standard alignment methods in recognizing the nearest neighbours of a long sequence. The ideal behaviour was to be halfway between the classic phylogenetic trees and new information, and the tree distance used to assess the best model is crucial at this step. The Robinson-Foulds distance may have been too generic to grasp the details needed to be used as an objective function (the best model in this work is the one which minimizes the RF distance), and while _easier_ features are present, like the nearness to SARS-Co-V, bat and pangolin, more subtle similarities are still not caught.
 The reason for this, in our opinion, should be searched in the human made choices (_e.g._ objective functions and hyperparameter search strategies), not in the method itself, which has yielded promising results, mirroring classical results with an alignment-free approach.
-
-###Epitope predictions reveal distinct clusters for protein types
-
-NUMBER OF BINDERS AND NON BINDERS
-
-THE PLOTS
 
 ## Future work
 
