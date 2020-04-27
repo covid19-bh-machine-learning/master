@@ -253,6 +253,8 @@ Out of 3730 sequences of the common corona virus sequences dataset, with an aver
 |:--:|
 | *Number of putative MHC class I binders per allele. Alleles HLA-A*01:01, HLA-A*02:01, HLA-A*02:03, HLA-A*03:01, HLA-A*24:02, HLA-A*26:01, HLA-A*68:02, HLA-B*44:03, HLA-B*35:01, HLA-B*51:01 and HLA-B*57:01 did not have any predicted binders. * |
 
+For the alleles, which have predicted binders, the number of strong and weak binders is not evenly distributed. HLA-B15:01, HLA-A11:01, HLA-A23:01 and HLA-A30:01 seem to contain many strong binders indicating that populations, which cover these specific alleles well may respond strongly to vaccines based on the respective epitopes.
+
 | ![](../epitope-clustering/plots/allele_ic50_distribution.png) |
 |:--:|
 | *ic50 distribution for putative binding MHC class I epitopes per allele.* |
