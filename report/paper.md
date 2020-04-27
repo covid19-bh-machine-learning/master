@@ -76,6 +76,7 @@ bibliography: paper.bib
 **Availability:** All data, code and results are available under permissive licenses (CC-BY or MIT) under the team GitHub repository [here](https://github.com/covid19-bh-machine-learning/master)
 
 **Contact:** **??? we should specify one or two emails here**
+pdavis@mriglobal.org
 
 # 1. Introduction
 
