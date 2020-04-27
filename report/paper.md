@@ -18,6 +18,9 @@ authors:
   - name: Didier Barradas-Bautista
     orcid: 0000-0002-6464-6607
     affiliation: 8
+  - name: Justin Barton
+    orcid: 0000-0002-1244-9484
+    affiliation: 9
   - name: Phillip Davis
     orcid: 0000-0003-3562-4836
     affiliation: 4
@@ -55,8 +58,10 @@ affiliations:
    index: 6
  - name: Insight Data Science, 500 3rd St, San Francisco, CA 94107, USA
    index: 7
- - name: King Abdullah University of Science and Technology, Thuwal ,Saudi Arabia
+ - name: King Abdullah University of Science and Technology, Thuwal, Saudi Arabia
    index: 8
+ - name: Birkbeck, University of London, London, United Kingdom
+   index: 9
 
 date: 26 April 2020
 bibliography: paper.bib
@@ -138,14 +143,14 @@ Our approach is inspired by previous works cited above, with the following chara
 
 - each protein sequence is treated as a sentence, made by overlapping words (k-mers) to incorporate some context-order information in the resulting distributed representation;
 - the word size is 3, which seems to work properly to embed amino acid sequences for biological tasks [@cheng_2019_dmrpis, @yi_2020_learning];
-- the sequence vector is defined as the arithmetic the mean of all its word vectors.
+- the sequence vector is defined as the arithmetic mean of all its word vectors.
 
-With this choices we must point that the sequence vector loses the concept of k-mer order, (i.e. the same vector can be obtained by the same k-mers shuffled) **but** the overlapping k-mers should have processed that "order" information down to their representations. That is, if there is a k-mer "SAN" there will certainly by a k-mer “-SA” and a k-mer “AN-” (where "-" is any aminoacid), and this is, in our view, a way of loosely preserving the k-mer order information in the sequence vector.
+With these choices we must point out that the sequence vector loses the concept of k-mer order, (i.e. the same vector can be obtained by the same k-mers shuffled) **but** the overlapping k-mers should have processed that "order" information down to their representations. That is, if there is a k-mer "SAN" there will certainly by a k-mer “-SA” and a k-mer “AN-” (where "-" is any aminoacid), and this is, in our view, a way of loosely preserving the k-mer order information in the sequence vector.
 
-As word2vec models, two architecture are available: continuous bag-of-words (CBOW) and skip gram. These models are shallow,
+As word2vec models, two architectures are available: continuous bag-of-words (CBOW) and skip gram. These models are shallow,
 two-layer neural networks that are trained to reconstruct semantic contexts of words. The CBOW model is trained to predict the current word by using a few sorrounding context words. On the other hand, skip-gram uses the current word to predict the sorrounding context words. In this work we applied the CBOW architecture, which is generally faster, therefore it is the preferred choice to have a scalable solution when a large corpus will be available for training. Importantly, the skip-gram architecture, in addition to result in a greater computational load for training the models, did not lead to significantly better models in our task (result not shown).
 
-The data we analyzed was a collection of ORF1ab AA sequences from the NCBI , as previously mentioned [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/) and [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_ORF1ab_meta.csv). We explored the hyper-parameter space trying several combinations of the following hyper-parameters: k-mers size, vector space dimension, number of epochs for the training.
+The data we analyzed was a collection of ORF1ab AA sequences from the NCBI, as previously mentioned [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/) and [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_ORF1ab_meta.csv). We explored the hyper-parameter space trying several combinations of the following hyper-parameters: k-mers size, vector space dimension, number of epochs for the training.
 
   * embedding size: [3, 4]
   * embedding size: [10, 50, 100, 200, 300, 500, 1000]
@@ -164,27 +169,27 @@ The comparison between the trees built on the embeddings and the clustalOmega tr
 
 ## 3.4 MHC class I and II binding affinity prediction
 
-An integral part of the adaptive immune system is the presentation of antigen epitopes on the cell surface. The MHC is the tissue-antigen, which T cells bind to, recognize and self-tolerate. During this process the MHC molecules bind to both, the T cell receptor and glycoproteins CD4/CD8 (cluster of differentiation) on T lymphocytes. Additionally, interactions between the variable Ig-like domain of the TCR interacts with the antigen epitope located in the peptide-binding groove of the MHC molecule to trigger T cell activation. Hence, epitopes can be used to elicit specific immune response making them suitable for vaccine design [@https://www.frontiersin.org/articles/10.3389/fimmu.2018.00826/full]. To construct an epitope based vaccine it is therefore imperative to evaluate the MHC class I or II binding affinity for a given set of peptide candidates and a given set of alleles. Furthermore, determining the binding affinities for specific subgroups may aid researchers focus on the most promising protein subunits, speeding up the vaccine development process.
+An integral part of the adaptive immune system is the presentation of antigen epitopes on the cell surface. The MHC is the tissue-antigen which T-cells bind to, recognize and self-tolerate. During this process the MHC molecules bind to both the T-cell receptor and glycoproteins CD4/CD8 (cluster of differentiation) on T lymphocytes. Additionally, interactions between the variable Ig-like domain of the TCR interacts with the antigen epitope located in the peptide-binding groove of the MHC molecule to trigger T cell activation. Hence, epitopes can be used to elicit specific immune response making them suitable for vaccine design [@https://www.frontiersin.org/articles/10.3389/fimmu.2018.00826/full]. To construct an epitope based vaccine it is therefore imperative to evaluate the MHC class I or II binding affinity for a given set of peptide candidates and a given set of alleles. Furthermore, determining the binding affinities for specific subgroups may aid researchers to focus on the most promising protein subunits, speeding up the vaccine development process.
 
-To determine binding affinites of peptides to MHC molecules time consuming experiments such as competition experiments have to be carried out. In these experiments the peptide concentration, which leads to 50\% inhibition of a standard peptide is measured. This concentration is known as the IC50 value. MHC binding peptides are typically classified by resulting IC50 values of less than 500 nM [@https://www.ncbi.nlm.nih.gov/pubmed/7527444]. To allow for quick and free assessments of MHC class I and II binding affinities several machine learning based software packages have been released in recent years. All of them are based on experimentally verified databases of MHC molecule binders and non-binders, but differ in their algorithms, training datasets and accessibility [@https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4654883/].
+To determine binding affinites of peptides to MHC molecules, time consuming experiments such as competition experiments have to be carried out. In these experiments the peptide concentration, which leads to 50\% inhibition of a standard peptide is measured. This concentration is known as the IC50 value. MHC binding peptides are typically classified by resulting IC50 values of less than 500 nM [@https://www.ncbi.nlm.nih.gov/pubmed/7527444]. To allow for quick and free assessments of MHC class I and II binding affinities several machine learning based software packages have been released in recent years. All of them are based on experimentally verified databases of MHC molecule binders and non-binders, but differ in their algorithms, training datasets and accessibility [@https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4654883/].
 
-MHCNuggets, a MHC class I and II binding affinity predictor, is based on a deep neural network, which makes use of several long-short term memory (LSTM) units to facilitate fast and peptide length independent predictions. Moreover, the usage of transfer learning and allele clustering approaches enable the confident prediction of rare alleles. The authors demonstrated that MHCNuggets has comparable prediction performance for both classes when compared to NetMHCPan, MHCFlurry and others, while being the fastest prediction method [@https://cancerimmunolres.aacrjournals.org/content/early/2020/02/04/2326-6066.CIR-19-0464].
-MHCNuggets v2.3 was applied within the EpitopePredict framework v0.4 [@https://github.com/dmnfarrell/epitopepredict] using the predefined broad_coverage_mhc1 (26 HLA alleles providing broad coverage) and human_common_mhc2 (11 most prevalent HLA-DR alleles worldwide) allele sets for class I and II respectively on a set of 7773 spike proteins of common corona virus including SARS-CoV-2. 
+MHCNuggets, a MHC class I and II binding affinity predictor, is based on a deep neural network, which makes use of several long-short term memory (LSTM) units to facilitate fast and peptide length-independent predictions. Moreover, the usage of transfer learning and allele clustering approaches enable the confident prediction of rare alleles. The authors demonstrated that MHCNuggets has comparable prediction performance for both classes when compared to NetMHCPan, MHCFlurry and others, while being the fastest prediction method [@https://cancerimmunolres.aacrjournals.org/content/early/2020/02/04/2326-6066.CIR-19-0464].
+MHCNuggets v2.3 was applied within the EpitopePredict framework v0.4 [@https://github.com/dmnfarrell/epitopepredict] using the predefined broad_coverage_mhc1 (26 HLA alleles providing broad coverage) and human_common_mhc2 (11 most prevalent HLA-DR alleles worldwide) allele sets for class I and II respectively on a set of 7773 subunit proteins of common corona virus including SARS-CoV-2. 
 
-The resulting binding affinities were used to for clustering using UMAP [@https://joss.theoj.org/papers/10.21105/joss.00861]. UMAP operates under the assumptions that the data is uniformly distributed on a Riemannian manifold, that the Riemannian metric is locally constant and that the manifold is locally connected. This allows UMAP to find a low dimensional projection of the data, which is equivalent to a fuzzy topological structure. UMAP has been demonstrated to retain more of the global structure than for example t-SNE, while having a lower run time [@https://arxiv.org/abs/1802.03426]. 
+The resulting epitope predictions and predicted binding affinities were used to for clustering using UMAP [@https://joss.theoj.org/papers/10.21105/joss.00861]. UMAP operates under the assumptions that the data are uniformly distributed on a Riemannian manifold, that the Riemannian metric is locally constant, and that the manifold is locally connected. This allows UMAP to find a low dimensional projection of the data, which is equivalent to a fuzzy topological structure. UMAP has been demonstrated to retain more of the global structure than, for example, t-SNE, while having a lower run time [@https://arxiv.org/abs/1802.03426]. 
 
 # 4. Results and Discussion
 
 Preliminary results include:
 
 ## 4.1 A k-mer length of four is sufficient to model the distribution of ORF1ab sequences.
-| ![](../figures/ORF1ab/weightedf1.png) |
+| ![](../figures/orf1ab/weightedf1.png) |
 |:--:|
 | *A line plot of weighted average F1-score for four different ORF1ab amino acid sequence classification tasks (Y-axis labels) at various kmer lengths. Y-axis denotes F1-score and X-axis denotes k-mer lengths.The vertical dotted line indicates optimal k-mer length.* |
 
 We obtained the weighted averaged F1-score in different context of the data to explore the use of k-mer lengths to extract features from the ORF1ab aminoacid sequences for classification tasks. The plot shows that the species and host context are highly separable using aminoacid sequence. Geolocation has the best F1-scores at two and four k-mers. The isolation source context also shows there are differences on sequences that four k-mer length captures better. A four k-mer length presented the optimal scores to classify the test data on the different chosen context in combination.  
 
-| ![](../figures/ORF1ab/metrics_p_r_f1.png) |
+| ![](../figures/orf1ab/metrics_p_r_f1.png) |
 |:--:|
 | *A table showing weighted averages scores for four different ORF1ab amino acid sequence classification tasks at various kmer lengths.* |
 
@@ -237,15 +242,36 @@ Finally, by using the cosine distance we built a distance tree and inspected the
 |:--:|
 | *Distance tree from the best model, visualized using Interactive Tree Of Life (iTOL) ([@letunic_2019_interactive]).* |
 
-As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus. There are not apparent unexpected neighbours, and the most distant species from SARS-CoV-2 is the porcine Deltacoronavirus, which actually has been seen as related to SARS-Co-V in a recent study [@boley_2020_porcine]. A possible explanation for these discrepancy could be attributed to the distance metric used in the evaluation of the tree,  which not incorporate the "importance" of each node in the tree. More studies are needed to explore more sensible distance metric, and the resulting best phylogenetic trees.
+As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus. There are not apparent unexpected neighbours, and the most distant species from SARS-CoV-2 is the porcine Deltacoronavirus, which actually has been seen as related to SARS-Co-V in a recent study [@boley_2020_porcine]. A possible explanation for this discrepancy could be attributed to the distance metric used in the evaluation of the tree,  which does not incorporate the "importance" of each node in the tree. More studies are needed to explore a more sensible distance metric, and the resulting best phylogenetic trees.
 
 
-## 4.4 MHC class I and II binding affinity prediction
+## 4.4 Epitope predictions reveal distinct clusters for protein types
 
-The analysis of potential epitopes is still on-going. However, by applying an RNA secondary structure "bag-of-words" model, and when genome position is part of the feature mode, there is a small number of word structures that have non-zero coefficients. It would be interesting to see whether the corresponding structures overlap directly with the ATRs or if they are interpolated between them.
+Out of 3730 sequences of the common corona virus sequences dataset, with an average AA sequence length of 414, MHCnuggets identified 323 epitopes as putative MHC class I binders. 
 
-Regarding a reduced alphabet amino acid linear model, there are a few strong predictors, in terms of coefficient. As an example, the `VSKLVK` pattern, which exhibited the strongest coefficient, appears in 194 human pathogen coronaviruses and in only 1 non-human coronavirus, which was a Feline coronavirus  DQ848678.1.
+| ![](../epitope-clustering/plots/allele_epitope_count.png) |
+|:--:|
+| *Number of putative MHC class I binders per allele. Alleles HLA-A*01:01, HLA-A*02:01, HLA-A*02:03, HLA-A*03:01, HLA-A*24:02, HLA-A*26:01, HLA-A*68:02, HLA-B*44:03, HLA-B*35:01, HLA-B*51:01 and HLA-B*57:01 did not have any predicted binders. * |
 
+| ![](../epitope-clustering/plots/allele_ic50_distribution.png) |
+|:--:|
+| *ic50 distribution for putative binding MHC class I epitopes per allele.* |
+
+The space of predicted epitopes and IC50 values were explored with UMAP clustering. For this purpose, an approach analagous to one hot encoding was used. For each of the original 3730 sequences a vector was generated with length equal to the number of distinct (predicted) allele-epitope pairs. As with one hot encoding, a 0 was used to indicate that a given allele-epitope was not predicted for the sequence. However, instead of using a 1 to indicate the prediction of an allele-epitope pair for a given sequence, the inverse of the IC50 value was used (1/IC50). This was done to include some information about predicted binding affinities. Future work could expand on this by using more direct representations of predicted immunogenicity and screening out epitopes resembling self-peptides.
+
+The UMAP clustering of the predicted epitope space yielded some interesting results that warrant further investigation. In particular, it suggested very little within-species varation of the immnune-presentation of envelope and membrane proteins.
+
+| ![](../epitope-clustering/plots/umap_envelope_protein.png) |
+|:--:|
+| *UMAP clustering of envelope proteins* |
+
+On the other hand, it suggests a great deal of variation in the immune-presentation of the spike proteins, even within species.
+
+| ![](../epitope-clustering/plots/umap_spike_protein.png) |
+|:--:|
+| *UMAP clustering of spike proteins* |
+
+If confirmed these results would have implications on potential immunotherapies as well as the effectiveness of subunit vaccines against within-species variants of the virus.
 
 # 5. Conclusion
 
@@ -259,12 +285,6 @@ All utilized methods produced promising results; species and host context are hi
 
 The alignment-free approach shows promising features, including the ability to mirror the standard alignment methods in recognizing the nearest neighbours of a long sequence. The ideal behaviour was to be halfway between the classic phylogenetic trees and new information, and the tree distance used to assess the best model is crucial at this step. The Robinson-Foulds distance may have been too generic to grasp the details needed to be used as an objective function (the best model in this work is the one which minimizes the RF distance), and while _easier_ features are present, like the nearness to SARS-Co-V, bat and pangolin, more subtle similarities are still not caught.
 The reason for this, in our opinion, should be searched in the human made choices (_e.g._ objective functions and hyperparameter search strategies), not in the method itself, which has yielded promising results, mirroring classical results with an alignment-free approach.
-
-###Epitope predictions reveal distinct clusters for protein types
-
-NUMBER OF BINDERS AND NON BINDERS
-
-THE PLOTS
 
 ## Future work
 
