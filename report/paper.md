@@ -63,7 +63,7 @@ affiliations:
  - name: Birkbeck, University of London, London, United Kingdom
    index: 9
 
-date: 26 April 2020
+date: 28 April 2020
 bibliography: paper.bib
 ---
 
@@ -75,8 +75,7 @@ bibliography: paper.bib
 
 **Availability:** All data, code and results are available under permissive licenses (CC-BY or MIT) under the team GitHub repository [here](https://github.com/covid19-bh-machine-learning/master)
 
-**Contact:** **??? we should specify one or two emails here**
-pdavis@mriglobal.org
+**Contact:** pdavis@mriglobal.org, fpsom@certh.gr
 
 # 1. Introduction
 
