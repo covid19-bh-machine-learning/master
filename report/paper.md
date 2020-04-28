@@ -147,34 +147,45 @@ The analysis was conducted in two different ways:
 
 Biological sequence comparison is a well established method in inferring the relatedness of various organisms as well as the functional role of their components. In the last years, there have been some efforts into representing biological sequences with new paradigms, especially by Natural Language Processing methods hereinafter laid down, with the aim to capture the most meaningful information of the original sequences. Although more modern solutions are present in the NLP domain universe, including but not limited to ELMo [@peters_2018_deep] & BERT [@devlin_2018_bert], biological sequence representation still has much to explore [@kimothi_2016_distributed], especially in relation to the final task which was solved exploiting the new representation. 
 
-One of the most successful word embedding-based models is the word2vec model [@mikolov_2013_efficient] for generating distributed representations of words and phrases. Considerable advances have been made with its standard application [@asgari_2015_continuous], with the functionality being extended to modelling for DNA [@ng_2017_dna2vec], RNA [@yi_2020_learning] and protein [@asgari_2015_prot2vec] sequences. To briefly summarize those studies, the impact of projecting sequence data on embedded spaces is likely to reduce the complexity of the algorithms needed to solve certain tasks (_e.g._ protein family classification [@asgari_2015_prot2vec]). Moreover, this approach is promising to represent residue-level sequence contexts for potential phosphorylation sites and demonstrate its application in both general and kinase-specific phosphorylation site predictions [@xu_2018_phoscontext2vec].
+One of the most successful word embedding-based models is the word2vec model [@mikolov_2013_efficient] for generating distributed representations of words and phrases. Considerable advances have been made with its standard application [@asgari_2015_continuous], with the functionality being extended to modelling for DNA [@ng_2017_dna2vec], RNA [@yi_2020_learning] and protein [@asgari_2015_prot2vec] sequences. One can briefly summarize those studies by indicating that the impact of projecting sequence data on embedded spaces is likely to reduce that complexity of the algorithms which is required to solve certain tasks such as protein family classification [@asgari_2015_prot2vec]). Moreover, this approach is promising to represent residue-level sequence contexts for potential phosphorylation sites and is able to demonstrate its application in both general and kinase-specific phosphorylation site predictions [@xu_2018_phoscontext2vec].
 
-Phylogenetics is the task of creating a phylogenetic tree which represents a hypothesis about the evolutionary ancestry of a set of genes, species or any other taxa. Many tree inference methods have been proposed and the current state-of-the-art approach is to perform tree inference through a two-step process of multiple sequence alignment (MSA) followed by statistical tree inference [@felsenstein_1988_phylogenies]. In this work we propose the use of continuous distributed representations for the protein sequences to create phylogenetic trees in an alignment-free manner, analyzing its strengths and weaknesses for this aim.
+Phylogenetics is the task of creating a phylogenetic tree which represents a hypothesis about the evolutionary ancestry of a set of genes, species or any other taxa. Although many tree inference methods have been proposed, the current state-of-the-art approach is to perform tree inference through a two-step process of multiple sequence alignment (MSA) followed by statistical tree inference [@felsenstein_1988_phylogenies]. 
 
-Our approach is inspired by previous works cited above, with the following characteristics:
+In this work, we propose the use of continuous distributed representations for the protein sequences to create phylogenetic trees in an alignment-free manner. We then shall analyze the strengths and weaknesses of our approach, subsequently.
 
-- each protein sequence is treated as a sentence, made by overlapping words (k-mers) to incorporate some context-order information in the resulting distributed representation;
-- the word size is 3, which seems to work properly to embed amino acid sequences for biological tasks [@cheng_2019_dmrpis, @yi_2020_learning];
-- the sequence vector is defined as the arithmetic mean of all its word vectors.
-- we also explored document representation via distributed memory (doc2vec) to directly generate sequences vectors[@DBLP:journals/corr/LeM14].
+Our approach is inspired by previous works afore cited, with the following noteworthy characteristics:
 
-By defining the sequence vector as the arithmetic mean of all its word vectors we must point out that the sequence vector loses the concept of k-mer order, (i.e. the same vector can be obtained by the same k-mers shuffled) **but** the overlapping k-mers should have processed that "order" information down to their representations. That is, if there is a k-mer "SAN" there will certainly by a k-mer “-SA” and a k-mer “AN-” (where "-" is any aminoacid), and this is, in our view, a way of loosely preserving the k-mer order information in the sequence vector.
-Nonetheless, for this reason, we generated also sequence vectors via doc2vec which is intrinsically supposed to preserve k-mers order.
+- Each protein sequence is treated as a sentence, made by overlapping words (k-mers) to incorporate some context-order information in the resulting distributed representation.
 
-As word2vec models, two architectures are available: continuous bag-of-words (CBOW) and skip gram. These models are shallow,
-two-layer neural networks that are trained to reconstruct semantic contexts of words. The CBOW model is trained to predict the current word by using a few surrounding context words. On the other hand, skip-gram uses the current word to predict the surrounding context words. In this work we applied the CBOW architecture, which is generally faster, therefore it is the preferred choice to have a scalable solution when a large corpus will be available for training. Importantly, the skip-gram architecture, in addition to result in a greater computational load for training the models, did not lead to significantly better models in our task (result not shown).
+- The word size is kept equal to 3, which seems to work properly to embed amino acid sequences for biological tasks [@cheng_2019_dmrpis, @yi_2020_learning].
 
-The data we analyzed was a collection of ORF1ab AA sequences from the NCBI, as previously mentioned [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/) and [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_ORF1ab_meta.csv). We explored the hyper-parameter space trying several combinations of the following hyper-parameters: k-mers size, vector space dimension, number of epochs for the training.
+- The sequence vector is defined as the arithmetic mean of all of its word vectors.
+
+- Document representation is also explored via distributed memory (doc2vec) to directly generate sequences vectors[@DBLP:journals/corr/LeM14].
+
+It is noteworthy that once the sequence vector is defined as the arithmetic mean of all of its word vectors, the sequence vector does loose the concept of k-mer order (i.e. the same vector can be obtained by the same k-mers shuffled). However, this indicated, the overlapping k-mers should have processed that "order" information down to their representations. This implies that if there is a k-mer "SAN", there will certainly be a k-mer “-SA” and a k-mer “AN-” (where "-" is any aminoacid), and this is, in our view, a protocol of preserving, even though loosely, the k-mer order information in the sequence vector.
+
+Nonetheless, sequence vectors were also generated via doc2vec & thus k-mers order was preserved.
+
+For word2vec models, which are shallow, two-layer neural networks that are trained to reconstruct semantic contexts of words, following two architectures are available:
+- **Continuous bag-of-words (CBOW) architecture** It is trained to predict the current word by using surrounding context words. 
+- **Skip-gram achitecture** It uses the current word to predict the surrounding context words.
+
+In this work, we present the results obtained from the CBOW architecture. This is bevause the CBOW architecture is the preferred choice to have a scalable solution when a large corpus is available for training since it is faster. More significantly, the skip-gram architecture, in addition to its usage resulting in a greater computational load for training the models, did not lead to significantly better models in our task (results are not shown).
+
+The data analyzed was a collection of ORF1ab AA sequences from the NCBI, as afore mentioned [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/) and [metadata](https://github.com/covid19-bh-machine-learning/master/blob/master/data/coronavirus_ORF1ab_meta.csv). 
+
+We explored the hyper-parameter space trying several combinations of the following hyper-parameters: k-mers size, vector space dimension, number of epochs for the training.
 
   * embedding size: [3, 4]
   * embedding size: [10, 50, 100, 200, 300, 500, 1000]
   * training epochs: [5, 10, 20, 50, 100, 200, 500, 1000]
 
-All the experiments were performed using Gensim [@ehek_2010_software] and Scikit-learn [@scikit-learn] libraries. In particular, we focused on the following pipeline:
-- obtain a vectorial representations of the proteins;
-- build a tree by using cosine distance between sequence vectors;
-- compare it with the clustalOmega [@sievers_2013_clustal] generated tree by means of Robinson-Foulds distance;
-- choose the best embedding by referring to the aforementioned distance, exploring the embedded space and the resulting tree by:
+All the experiments were performed using Gensim [@ehek_2010_software] and Scikit-learn [@scikit-learn] libraries. In particular, the following pipeline was focused on:
+- Obtain a vectorial representations of the proteins;
+- Build a tree by using cosine distance between sequence vectors;
+- Compare it with the clustalOmega [@sievers_2013_clustal] generated tree by means of Robinson-Foulds distance;
+- Choose the best embedding by referring to the aforementioned distance, exploring the embedded space and the resulting tree by:
   * analyzing the embedded space by PCA
   * analyzing the embedded space by tSNE
   * exploring the resulting tree both with the full embedded space and with the first Principal Components
