@@ -69,28 +69,28 @@ bibliography: paper.bib
 
 # Abstract
 
-**Motivation:** The end of 2019 came with the emergence of a previously unknown virus, identified as a new type of coronavirus, and has since spread over the globe as a pandemic of an unprecedented scale. Through a global effort, a number of virus samples have been fully sequenced, with the data deposed in publicly accessible repositories. Given the high similarity of the sequences, both at the aminoacid and the nucleotide level, a key question is how to identify interesting / discriminating features across the different sequences, so that the underling structure of the evolutionary story of the virus can be highlighted. In this work we present our efforts in addressing this issue, through the systematic application of Machine Learning methods towards meaningful feature extraction.
+**Motivation:** The end of 2019 came with the emergence of a novel virus, identified as a new strain of Coronavirus, and has since spread over the globe as a pandemic of an unprecedented scale. A global collaborative effort has lead to a number of virus samples being fully sequenced, with the data disseminated by being published in publicly accessible repositories. Given the high similarity of the sequences, both at the aminoacid as well as the nucleotide levels, a key question arises as to how to identify interesting, discriminating features across the different sequences such that the underling structure of the evolutionary story of the virus can be highlighted. In this work we present our efforts in addressing this issue, through the systematic application of Machine Learning methods towards meaningful feature extraction.
 
 **Results:** We applied a range of methods, in order to; identify the optimal word (k-mer) size for aminoacid patterns; identify k-mers features at the nucleotide level that have predictive value; construct continuous distributed representations for protein sequences in order to create phylogenetic trees in an alignment-free manner; and predict MHC class I and II binding affinity.
 
-**Availability:** All data, code and results are available under permissive licenses (CC-BY or MIT) under the team GitHub repository [here](https://github.com/covid19-bh-machine-learning/master)
+**Availability:** All data, code and results are available under permissive licenses (CC-BY or MIT) in the team GitHub repository [here](https://github.com/covid19-bh-machine-learning/master)
 
 **Contact:** pdavis@mriglobal.org, fpsom@certh.gr
 
 # 1. Introduction
 
-In late 2019, a previously unknown virus began spreading within the population of the Wuhan-city in the Hubei province of China [@Huang-Jan2020]. The virus, identified as a new type of coronavirus [@WHO-sitrep1], has since spread over the globe as a pandemic of an unprecedented scale [@WHO-press-pandemic,@WHO-sitrep78].
+In late 2019, a novel virus began spreading within the population of the Wuhan-city in the Hubei province of China [@Huang-Jan2020]. The virus, identified as a new strain of Coronavirus [@WHO-sitrep1], has since spread over the globe as a pandemic of an unprecedented scale [@WHO-press-pandemic,@WHO-sitrep78].
 
-Through a global effort, a number of virus samples have been fully sequenced, with the data deposed in publicly accessible repositories, such as the [SARS-CoV-2 sequences GenBank](https://www.ncbi.nlm.nih.gov/genbank/sars-cov-2-seqs/) and the [EBI Data](https://www.ebi.ac.uk/ena/pathogens/covid-19).
+A global collaborative effort has lead to a number of virus samples being fully sequenced, with the data disseminated by being published in publicly accessible repositories, such as the [SARS-CoV-2 sequences GenBank](https://www.ncbi.nlm.nih.gov/genbank/sars-cov-2-seqs/) and the [EBI Data](https://www.ebi.ac.uk/ena/pathogens/covid-19).
 
-Given the high similarity of the sequences, both at the aminoacid and the nucleotide level, a key question is how to identify interesting / discriminating features across the different sequences, so that the underling structure of the evolutionary story of the virus can be highlighted.
+Given the high similarity of the sequences, both at the aminoacid as well as the nucleotide levels, a key question arises as to how to identify features of interest across the different sequences, such that the underling structure of the viral evolutionary story can be highlighted.
 
 In order to address this question, the Machine Learning group of the [COVID-19 Biohackathon](https://github.com/virtual-biohackathons/covid-19-bh20), defined the following tasks:
 
-- Identify potential features at the nucleotide level based on the k-mers, for various _k_ values.
-- Identify potential features at the aminoacid level, based on the AA frequencies, across various word sizes.
-- Perform in-silico estimates of epitopes for COVID19.
-- Identify patterns in secondary structure, compared to patterns evident in random sequences.
+- Identification of the potential features at the nucleotide level based on the k-mers, for various _k_ values.
+- Identification of the potential features at the aminoacid level, based on the AA frequencies, across various word sizes.
+- Performance of in-silico estimates of epitopes for COVID19.
+- Identification of patterns in secondary structure, compared to patterns evident in random sequences.
 
 Each task, and the corresponding outputs are detailed below.
 
@@ -99,7 +99,7 @@ Each task, and the corresponding outputs are detailed below.
 
 ## 2.1. Data pre-Processing
 
-We used several different publicly available resources as input for this study. Specifically:
+Different publicly available resources were used as input for this study including the following:
 
 - SARS-CoV-2 ORF1ab gene sequences and metadata for all _betacoronaviridae_ were obtained from [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/).
 - SARS-CoV-2 (COVID19) full assembly nucleotide sequences that have been identified in Humans were retrieved from [GenBank](https://www.ncbi.nlm.nih.gov/genbank/sars-cov-2-seqs/)
@@ -110,32 +110,44 @@ The processed version of all human virus sequences can be found [here](https://g
 
 ## 2.2 Scope
 
-In order to identify interesting features across the target sequences, and investigate their usefulness as potential predictors, we applied a range of methods:
+In order to identify features of interest across the target sequences, and investigate their utility as potential predictors, we applied a range of methods including following:
 1. Identification of optimal word (k-mer) size for aminoacid patterns
 2. Identification of potential k-mers features at the nucleotide level
-3. Continuous distributed representations for protein sequences to create phylogenetic trees in an alignment-free manner
-4. MHC class I and II binding affinity prediction
+3. Continuous distributed representations for protein sequences inorder to create phylogenetic trees in an alignment-free manner
+4. Prediction of MHC class I and MHC class II binding affinity
 
 
 # 3. Methods
 
-Each of these methods is described in more detail in the following sections.
+Each of the aforementioned methods is described concisely in the following sections.
 
 ## 3.1 Determination of optimal amino acid word size for ORF1ab feature extraction.
 
-Using the processed version of all _betacoronaviridae_ SARS-CoV-2 ORF1ab sequences, the amino acid sequences were fragmented into words ranging from 1 to 9 in size. From within the available meta-data, we selected four fields as potential classification targets; Species, Host, Geographical Location, and Extraction Source. In order for a field to be included as a classification target, the particular label must have a representation of at least 20 within the entire dataset of 2,384 unique, by accession ID, sequences. The produced words were embedded with `CountVectorizer` and fitted on logistic regression using the scikit-learn[@scikit-learn] package. Model performances were evaluated using a weighted average of precision, recall, and F1-score across the test data.
+Using the processed version of all _betacoronaviridae_ SARS-CoV-2 ORF1ab sequences, the amino acid sequences were fragmented into words ranging from 1 to 9 in size. From within the available meta-data, we selected the following four fields as potential classification targets:
+  - Species
+  - Host
+  - Geographical Location
+  - Extraction Source
+  
+In order for a field to be included as a classification target, the particular label must have a representation of at least 20 within the entire dataset of 2,384 unique, by accession ID, sequences. 
+
+The produced words were embedded with `CountVectorizer` and fitted on logistic regression using the scikit-learn[@scikit-learn] package. Model performances were evaluated using a weighted average of precision, recall, and F1-score across the test data.
 
 ## 3.2 Potential features at the nucleotide level based on the k-mers
 
-This approach focuses on the detection of k-mers that appear with high frequency in the data. The main dataset that was used for feature extraction is the set of 281 human SARS-CoV-2 virus sequences. The analysis that was conducted is an algorithmic procedure based on a pruning tree, which dynamically evaluates k-mers of different lengths and keeps those with the highest evaluation, while at the same time k-mers with low evaluation are rejected. The evaluation parameter depends both on the length of each k-mer and its frequency in the data. In this way, the most significant k-mers are isolated within a very decent time and can be used as features in our data.
+This approach focused on the detection of k-mers that appear with high frequency in the data. The primary dataset used for feature extraction was the set of 281 human SARS-CoV-2 virus sequences. The analysis was conducted is an algorithmic procedure based on a pruning tree, which dynamically evaluated k-mers of different lengths, keeping only those with the highest evaluation. The evaluation parameter depended on both; the length of each k-mer as well as its frequency in the data. In this way, the most significant k-mers were isolated within a very decent time and were able to be used as features in our data.
 
 The analysis was conducted in two different ways:
-- In the first approach the algorithm was applied to each sequence separately. In this way, the repetitiveness of k-mers within a single sequence was examined. The data that were extracted from this analysis have been joined with the meta data in a [single data matrix](https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_mata_data_merged.csv). The elements below the k-mer columns correspond to the frequency of each k-mer within a single sequence.
-- In the second approach, the algorithm was applied to the total data set and, thus, genome sequences were treated as a single set. K-mers that appear with high frequency within all the genome sequences were successfully isolated in an output k-mers set. The next step was to remove all k-mers that appeared to every sequence from this output set, in order to reduce the dimensionality of the problem. The data that were extracted from this analysis have also been joined with the meta data set in a [single data matrix](https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_meta_data__fixed_merged.csv). The elements below the k-mer columns are zeros and ones, where 1 indicates that the current k-mer appears in the corresponding sequence, while 0 indicates absence.
+
+- In the first approach, the algorithm was applied to each sequence separately. In this way, the repetitiveness of k-mers within a single sequence was examined. The data that were extracted from this analysis have been joined with the meta data in a [single data matrix](https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_mata_data_merged.csv). The elements below the k-mer columns correspond to the frequency of each k-mer within a single sequence.
+
+- In the second approach, the algorithm was applied to the total data set and, thus, treating thegenome sequences as a single set, thus. K-mers that appeared with high frequency within all the genome sequences were successfully isolated in an output k-mers set. The next step was to remove all k-mers that appeared to every sequence from this output set, in order to reduce the dimensionality of the problem. The data that were extracted from this analysis have also been joined with the meta data set in a [single data matrix](https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_meta_data__fixed_merged.csv). It is indicated that the elements in the k-mer columns are zeros and ones, where 1 indicates that the current k-mer appears in the corresponding sequence, while 0 indicates absence.
 
 ## 3.3 Continuous distributed representations for protein sequences to create phylogenetic trees in an alignment-free manner
 
-Biological sequence comparison is a well established way in inferring the relatedness of various organisms and the functional role of their components. In the last years there have been some efforts into representing biological sequences with new paradigms, especially by following Natural Language Processing methods, with the aim to capture the most meaningful information of the original sequences. Although more modern solutions are present in the world of NLP, like ELMo [@peters_2018_deep], BERT [@devlin_2018_bert], and so on, biological sequence representation still has much to explore [@kimothi_2016_distributed], especially in relation to the final task which has to be solved exploiting the new representation. One of the most successful word embedding-based models is the word2vec model [@mikolov_2013_efficient] for generating distributed representations of words and phrases. Some advances have been made with its standard application [@asgari_2015_continuous], both for DNA [@ng_2017_dna2vec], RNA [@yi_2020_learning] and protein [@asgari_2015_prot2vec] sequences. To briefly summarize those studies, the impact of projecting sequence data on embedded spaces is likely to reduce the complexity of the algorithms needed to solve certain tasks (_e.g._ protein family classification [@asgari_2015_prot2vec]). Moreover, this approach is promising to represent residue-level sequence contexts for potential phosphorylation sites and demonstrate its application in both general and kinase-specific phosphorylation site predictions [@xu_2018_phoscontext2vec].
+Biological sequence comparison is a well established method in inferring the relatedness of various organisms as well as the functional role of their components. In the last years, there have been some efforts into representing biological sequences with new paradigms, especially by Natural Language Processing methods hereinafter laid down, with the aim to capture the most meaningful information of the original sequences. Although more modern solutions are present in the NLP domain universe, including but not limited to ELMo [@peters_2018_deep] & BERT [@devlin_2018_bert], biological sequence representation still has much to explore [@kimothi_2016_distributed], especially in relation to the final task which was solved exploiting the new representation. 
+
+One of the most successful word embedding-based models is the word2vec model [@mikolov_2013_efficient] for generating distributed representations of words and phrases. Considerable advances have been made with its standard application [@asgari_2015_continuous], with the functionality being extended to modelling for DNA [@ng_2017_dna2vec], RNA [@yi_2020_learning] and protein [@asgari_2015_prot2vec] sequences. To briefly summarize those studies, the impact of projecting sequence data on embedded spaces is likely to reduce the complexity of the algorithms needed to solve certain tasks (_e.g._ protein family classification [@asgari_2015_prot2vec]). Moreover, this approach is promising to represent residue-level sequence contexts for potential phosphorylation sites and demonstrate its application in both general and kinase-specific phosphorylation site predictions [@xu_2018_phoscontext2vec].
 
 Phylogenetics is the task of creating a phylogenetic tree which represents a hypothesis about the evolutionary ancestry of a set of genes, species or any other taxa. Many tree inference methods have been proposed and the current state-of-the-art approach is to perform tree inference through a two-step process of multiple sequence alignment (MSA) followed by statistical tree inference [@felsenstein_1988_phylogenies]. In this work we propose the use of continuous distributed representations for the protein sequences to create phylogenetic trees in an alignment-free manner, analyzing its strengths and weaknesses for this aim.
 
