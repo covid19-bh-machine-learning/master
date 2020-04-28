@@ -266,7 +266,7 @@ Out of 3730 sequences of the common corona virus sequences dataset, with an aver
 |:--:|
 | *Number of putative binding epitopes per allele.* |
 
-For the alleles, which have predicted binders, the number of strong and weak binders is not evenly distributed. HLA-B15:01, HLA-A11:01, HLA-A23:01, HLA-A30:01, and HLA-A30:01 seem to contain many strong binders, indicating that populations which cover these specific alleles well may respond strongly to vaccines based on the respective epitopes.
+For the alleles, which have predicted binders, the number of strong and weak binders is not evenly distributed. HLA-B15:01, HLA-A11:01, HLA-A23:01, HLA-A30:01, and HLA-A33:01 seem to contain many strong binders, indicating that populations which cover these specific alleles well may respond strongly to vaccines based on the respective epitopes.
 
 | ![](../epitope-clustering/plots/allele_ic50_distribution.png) |
 |:--:|
