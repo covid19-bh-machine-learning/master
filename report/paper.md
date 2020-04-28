@@ -226,13 +226,13 @@ To understand how the underlying space is distributing its variability we perfor
 
 In parallel we performed a tSNE in 2-dimensions to have an indication on how the groups of different virus species were clustered and if any confounding effect was present (e.g. clustering for country). By plotting only those species that were present no less than 5 times we can see that SARS-CoV-2 clusters near the bat coronavirus, as expected.
 
-| ![](../embeddings/word2vec/plots/byspecies_tsne_ORF1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) |
+| ![](../embeddings/word2vec/plots/byspecies_tsne_orf1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) |
 |:--:|
 | *t-distributed stochastic neighbor embedding space in 2-dimension shows expected cluters.* |
 
 No country-related clustering was evident.
 
-| ![](../embeddings/word2vec/plots/bygeo_gt_5_tsne_ORF1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) |
+| ![](../embeddings/word2vec/plots/bygeo_gt_5_tsne_orf1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) |
 |:--:|
 | *t-distributed stochastic neighbor embedding space in 2-dimension confirms the absence of country as a confounding effect.* |
 
