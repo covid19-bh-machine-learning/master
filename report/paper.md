@@ -92,7 +92,7 @@ In order to address this question, the Machine Learning group of the [COVID-19 B
 - Performance of in-silico estimates of epitopes for COVID19.
 - Identification of patterns in secondary structure, compared to patterns evident in random sequences.
 
-Each task, and the corresponding outputs are detailed below.
+Each task, along with the corresponding outputs, is detailed hereinafter.
 
 
 # 2. Approach
