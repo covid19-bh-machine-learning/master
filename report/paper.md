@@ -259,19 +259,19 @@ Finally, by using the cosine distance we built a distance tree and inspected the
 As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus. There are not apparent unexpected neighbours, and the most distant species from SARS-CoV-2 is the porcine _Deltacoronavirus_, which actually has been seen as related to SARS-Co-V in a recent study [@boley_2020_porcine]. A possible explanation for this discrepancy could be attributed to the distance metric used in the evaluation of the tree,  which does not incorporate the "importance" of each node in the tree. More studies are needed to explore a more sensible distance metric, and the resulting best phylogenetic trees.
 
 
-## 4.4 Epitope predictions reveal distinct clusters for protein types
+## 4.4 Epitope predictions suggest important variation by HLA allele and viral subunit protein
 
-Out of 3730 sequences of the common corona virus sequences dataset, with an average AA sequence length of 414, MHCnuggets identified 323 epitopes as putative MHC class I binders.
+Out of 3730 sequences of the common corona virus sequences dataset, with an average AA sequence length of 414, MHCnuggets identified 867,231 epitopes as binding (using a theshold of IC50<500).
 
 | ![](../epitope-clustering/plots/allele_epitope_count.png) |
 |:--:|
-| *Number of putative MHC class I binders per allele. Alleles HLA-A*01:01, HLA-A*02:01, HLA-A*02:03, HLA-A*03:01, HLA-A*24:02, HLA-A*26:01, HLA-A*68:02, HLA-B*44:03, HLA-B*35:01, HLA-B*51:01 and HLA-B*57:01 did not have any predicted binders. * |
+| *Number of putative binding epitopes per allele.* |
 
-For the alleles, which have predicted binders, the number of strong and weak binders is not evenly distributed. HLA-B15:01, HLA-A11:01, HLA-A23:01 and HLA-A30:01 seem to contain many strong binders indicating that populations, which cover these specific alleles well may respond strongly to vaccines based on the respective epitopes.
+For the alleles, which have predicted binders, the number of strong and weak binders is not evenly distributed. HLA-B15:01, HLA-A11:01, HLA-A23:01, HLA-A30:01, and HLA-A30:01 seem to contain many strong binders, indicating that populations which cover these specific alleles well may respond strongly to vaccines based on the respective epitopes.
 
 | ![](../epitope-clustering/plots/allele_ic50_distribution.png) |
 |:--:|
-| *ic50 distribution for putative binding MHC class I epitopes per allele.* |
+| *ic50 distribution of putative binding epitopes per allele.* |
 
 The space of predicted epitopes and IC50 values were explored with UMAP clustering. For this purpose, an approach analogous to one hot encoding was used. For each of the original 3730 sequences a vector was generated with length equal to the number of distinct (predicted) allele-epitope pairs. As with one hot encoding, a 0 was used to indicate that a given allele-epitope was not predicted for the sequence. However, instead of using a 1 to indicate the prediction of an allele-epitope pair for a given sequence, the inverse of the IC50 value was used (1/IC50). This was done to include some information about predicted binding affinities. Future work could expand on this by using more direct representations of predicted immunogenicity and screening out epitopes resembling self-peptides.
 
@@ -301,6 +301,10 @@ All utilized methods produced promising results; species and host context are hi
 
 The alignment-free approach shows promising features, including the ability to mirror the standard alignment methods in recognizing the nearest neighbours of a long sequence. The ideal behaviour was to be halfway between the classic phylogenetic trees and new information, and the tree distance used to assess the best model is crucial at this step. The Robinson-Foulds distance may have been too generic to grasp the details needed to be used as an objective function (the best model in this work is the one which minimizes the RF distance), and while _easier_ features are present, like the nearness to SARS-Co-V, bat and pangolin, more subtle similarities are still not caught.
 The reason for this, in our opinion, should be searched in the human made choices (_e.g._ objective functions and hyperparameter search strategies), not in the method itself, which has yielded promising results, mirroring classical results with an alignment-free approach.
+
+## Predicted epitope feature space
+
+The cursory analysis of the feature space of predicted epitopes suggests two salient results. First, it suggests that there is a great deal of variation in immunopresentation by HLA allele. Secondly, it suggests that viral protein subunits have very different degrees of variation in how they are presented, with respect to epitopes and predicted binding affinity. Both of these results, if confirmed, would have profound implications for vaccine design. Further exploration is warranted. Avenues for improvement would include using HLA allele-specific thresholds for binding prediction and removing epitopes with high similarity to known self-peptides.
 
 ## Future work
 
