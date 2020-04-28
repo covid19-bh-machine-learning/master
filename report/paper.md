@@ -69,7 +69,7 @@ bibliography: paper.bib
 
 # Abstract
 
-**Motivation:** The end of 2019 came with the emergence of a novel virus, identified as a new strain of Coronavirus, and has since spread over the globe as a pandemic of an unprecedented scale. A global collaborative effort has lead to a number of virus samples being fully sequenced, with the data disseminated by being published in publicly accessible repositories. Given the high similarity of the sequences, both at the aminoacid as well as the nucleotide levels, a key question arises as to how to identify interesting, discriminating features across the different sequences such that the underling structure of the evolutionary story of the virus can be highlighted. In this work we present our efforts in addressing this issue, through the systematic application of Machine Learning methods towards meaningful feature extraction.
+**Motivation:** The end of 2019 came with the emergence of a novel virus, identified as a new strain of Coronavirus, and has since spread over the globe as a pandemic of an unprecedented scale. A global collaborative effort has lead to a number of virus samples being fully sequenced, with the data disseminated by being published in publicly accessible repositories. Given the high similarity of the sequences, both at the aminoacid as well as the nucleotide levels, a key question arises as to how to identify interesting, discriminating features across the different sequences such that the underling structure of the evolutionary story of the virus can be highlighted. In this work we present our efforts in addressing this issue, through the systematic application of machine learning methods towards meaningful feature extraction.
 
 **Results:** We applied a range of methods, in order to; identify the optimal word (k-mer) size for aminoacid patterns; identify k-mers features at the nucleotide level that have predictive value; construct continuous distributed representations for protein sequences in order to create phylogenetic trees in an alignment-free manner; and predict MHC class I and II binding affinity.
 
@@ -85,7 +85,7 @@ A global collaborative effort has lead to a number of virus samples being fully 
 
 Given the high similarity of the sequences, both at the aminoacid as well as the nucleotide levels, a key question arises as to how to identify features of interest across the different sequences, such that the underling structure of the viral evolutionary story can be highlighted.
 
-In order to address this question, the Machine Learning group of the [COVID-19 Biohackathon](https://github.com/virtual-biohackathons/covid-19-bh20), defined the following tasks:
+In order to address this question, the machine learning group of the [COVID-19 Biohackathon](https://github.com/virtual-biohackathons/covid-19-bh20), defined the following tasks:
 
 - Identification of the potential features at the nucleotide level based on the k-mers, for various _k_ values.
 - Identification of the potential features at the aminoacid level, based on the AA frequencies, across various word sizes.
@@ -312,7 +312,7 @@ This report reflect the work initiated within the [COVID-19 Biohackathon of Apri
 
 ## GitHub repository
 
-All the work presented here is available in our [GitHub repository](https://github.com/covid19-bh-machine-learning/master).
+All the work presented here is available in our [GitHub repository](https://github.com/covid19-bh-machine-learning/master) under the MIT license.
 
 ## Analysis of ORF1ab dataset
 - A dashboard for exploring ORF1ab dataset.<br />
