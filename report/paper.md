@@ -1,5 +1,6 @@
 ---
 title: 'Determining a novel feature-space for SARS-COV2 Sequence data'
+title_short: 'Determining a novel feature-space for SARS-COV2 Sequence data'
 tags:
   - Feature determination
   - k-mer modelling
@@ -36,13 +37,12 @@ authors:
   - name: Anastasios Togkousidis
     orcid: 0000-0003-4306-3709
     affiliation: 3
-   - name: Phillip Davis
+  - name: Phillip Davis
     orcid: 0000-0003-3562-4836
     affiliation: 4
-   - name: Fotis Psomopoulos
+  - name: Fotis Psomopoulos
     orcid: 0000-0002-0222-4273
     affiliation: 3
-
 affiliations:
  - name: University of Tübingen/Quantitative Biology Center,  Auf der Morgenstelle 10, Tübingen, Germany
    index: 1
@@ -62,9 +62,11 @@ affiliations:
    index: 8
  - name: Birkbeck, University of London, London, United Kingdom
    index: 9
-
-date: 28 April 2020
+date: 29 April 2020
 bibliography: paper.bib
+event: Covid2020
+group: Machine Learning group
+authors_short: Phillip Davis & Fotis Psomopoulos \emph{et al.}
 ---
 
 # Abstract
@@ -128,8 +130,8 @@ Using the processed version of all _betacoronaviridae_ SARS-CoV-2 ORF1ab sequenc
   - Host
   - Geographical Location
   - Extraction Source
-  
-In order for a field to be included as a classification target, the particular label must have a representation of at least 20 within the entire dataset of 2,384 unique, by accession ID, sequences. 
+
+In order for a field to be included as a classification target, the particular label must have a representation of at least 20 within the entire dataset of 2,384 unique, by accession ID, sequences.
 
 The produced words were embedded with `CountVectorizer` and fitted on logistic regression using the scikit-learn[@scikit-learn] package. Model performances were evaluated using a weighted average of precision, recall, and F1-score across the test data.
 
@@ -145,7 +147,7 @@ The analysis was conducted in two different ways:
 
 ## 3.3 Continuous distributed representations for protein sequences to create phylogenetic trees in an alignment-free manner
 
-Biological sequence comparison is a well established method in inferring the relatedness of various organisms as well as the functional role of their components. In the last years, there have been some efforts into representing biological sequences with new paradigms, especially by Natural Language Processing methods hereinafter laid down, with the aim to capture the most meaningful information of the original sequences. Although more modern solutions are present in the NLP domain universe, including but not limited to ELMo [@peters_2018_deep] & BERT [@devlin_2018_bert], biological sequence representation still has much to explore [@kimothi_2016_distributed], especially in relation to the final task which was solved exploiting the new representation. 
+Biological sequence comparison is a well established method in inferring the relatedness of various organisms as well as the functional role of their components. In the last years, there have been some efforts into representing biological sequences with new paradigms, especially by Natural Language Processing methods hereinafter laid down, with the aim to capture the most meaningful information of the original sequences. Although more modern solutions are present in the NLP domain universe, including but not limited to ELMo [@peters_2018_deep] & BERT [@devlin_2018_bert], biological sequence representation still has much to explore [@kimothi_2016_distributed], especially in relation to the final task which was solved exploiting the new representation.
 
 One of the most successful word embedding-based models is the word2vec model [@mikolov_2013_efficient] for generating distributed representations of words and phrases. Considerable advances have been made with its standard application [@asgari_2015_continuous], with the functionality being extended to modelling for DNA [@ng_2017_dna2vec], RNA [@yi_2020_learning] and protein [@asgari_2015_prot2vec] sequences. To briefly summarize those studies, the impact of projecting sequence data on embedded spaces is likely to reduce the complexity of the algorithms needed to solve certain tasks (_e.g._ protein family classification [@asgari_2015_prot2vec]). Moreover, this approach is promising to represent residue-level sequence contexts for potential phosphorylation sites and demonstrate its application in both general and kinase-specific phosphorylation site predictions [@xu_2018_phoscontext2vec].
 
@@ -196,64 +198,46 @@ The resulting epitope predictions and predicted binding affinities were used to 
 Preliminary results include:
 
 ## 4.1 A k-mer length of four is sufficient to model the distribution of ORF1ab sequences.
-| ![](../figures/orf1ab/weightedf1.png) |
-|:--:|
-| *A line plot of weighted average F1-score for four different ORF1ab amino acid sequence classification tasks (Y-axis labels) at various kmer lengths. Y-axis denotes F1-score and X-axis denotes k-mer lengths. The vertical dotted line indicates optimal k-mer length.* |
+
+![A line plot of weighted average F1-score for four different ORF1ab amino acid sequence classification tasks (Y-axis labels) at various kmer lengths. Y-axis denotes F1-score and X-axis denotes k-mer lengths. The vertical dotted line indicates optimal k-mer length. \label{fig}](weightedf1.png)
 
 We obtained the weighted averaged F1-score in different context of the data to explore the use of k-mer lengths to extract features from the ORF1ab aminoacid sequences for classification tasks. The plot shows that the species and host context are highly separable using aminoacid sequence. Geolocation has the best F1-scores at two and four k-mers. The isolation source context also shows there are differences on sequences that four k-mer length captures better. A four k-mer length presented the optimal scores to classify the test data on the different chosen context in combination.  
 
-| ![](../figures/orf1ab/metrics_p_r_f1.png) |
-|:--:|
-| *A table showing weighted averages scores for four different ORF1ab amino acid sequence classification tasks at various k-mer lengths.* |
+![A table showing weighted averages scores for four different ORF1ab amino acid sequence classification tasks at various k-mer lengths. \label{fig} ](metrics_p_r_f1.png)
 
 This table shows the weighted average metrics across the test data for four classification task depending on the context.
 
 ## 4.2 Nucleotide k-mer features as potential predictors
 
-
-| ![](../figures/clusteringKmers.png) |
-|:--:|
-| *A heatmap of the k-mer-based features across the COVID19 sequences, annotated both by GEO and Date. Rows and columns were clustered using ward.D2. Sequence clusters (y-axis) where produced by applying a tree cut-off at 10 clusters.* |
+![A heatmap of the k-mer-based features across the COVID19 sequences, annotated both by GEO and Date. Rows and columns were clustered using ward.D2. Sequence clusters (y-axis) where produced by applying a tree cut-off at 10 clusters. \label{fig} ](clusteringKmers.png)
 
 Using the [single data matrix](https://github.com/covid19-bh-machine-learning/master/blob/master/kmerClusteringData/kmer_analysis_and_meta_data__fixed_merged.csv) representation of the k-mer-based feature, we applied hierarchical clustering across both sequences and features. As shown in the figure above, there is a distinct clustering of sequences - notably, the reference sequence (_AccID: NC_045512_) is clustered together with several other sequences, but at the same time, there are a few singletons as outliers, that should be investigated further.
 
 Additionally, it is equally important to note that in this analysis all derived features were utilized. However, it is evident that the feature variance (column) is very limited, which implies that the corresponding set of predictors will be significantly smaller.
 
-
-
 ## 4.3 Continuous distributed representations results
 
 Initial results indicate that higher dimensional embeddings are better at capturing the complexity of the aminoacidic sequences in terms of the resulting tree. The best results against the clustalOmega tree are in fact obtained for the word2vec model for a k-mer length of 3, a vector size of 1000, trained for 100 epochs. All subsequent analyses are related to this model. In addition, we briefly investigated the robustness of the method by analyzing the second-best model and all the following results were maintained (data not shown):
 
-| ![](../embeddings/word2vec/plots/best_embedding_w2v_k3.png) |
-|:--:|
-| *Heatmap reporting for all the hyper-parameter combinations performed the Robinson-Foulds distance between the trees build on the embeddings and the clustalOmega tree for all the hyper-parameter combinations performed.* |
+![Heatmap reporting for all the hyper-parameter combinations performed the Robinson-Foulds distance between the trees build on the embeddings and the clustalOmega tree for all the hyper-parameter combinations performed. \label{fig} ](best_embedding_w2v_k_3.png)
 
 To understand how the underlying space is distributing its variability we performed a PCA up until 90% explained variance, and even if the best embedding required high dimensions (1000), the majority of the variance can be found in 10 Principal components.
 
-| ![](../embeddings/word2vec/plots/k_3_PCA_cumsum_best_model.png) |
-|:--:|
-| *Principal Component Analysis of the vector-space of the best model shows that the majority of the variance lies on few principal components.* |
+![Principal Component Analysis of the vector-space of the best model shows that the majority of the variance lies on few principal components. \label{fig} ](k_3_PCA_cumsum_best_model.png)
 
 In parallel we performed a tSNE in 2-dimensions to have an indication on how the groups of different virus species were clustered and if any confounding effect was present (e.g. clustering for country). By plotting only those species that were present no less than 5 times we can see that SARS-CoV-2 clusters near the bat coronavirus, as expected.
 
-| ![](../embeddings/word2vec/plots/byspecies_tsne_orf1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) |
-|:--:|
-| *t-distributed stochastic neighbor embedding space in 2-dimension shows expected clusters.* |
+![t-distributed stochastic neighbor embedding space in 2-dimension shows expected clusters. \label{fig} ](byspecies_tsne_orf1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png)
 
 No country-related clustering was evident.
 
-| ![](../embeddings/word2vec/plots/bygeo_gt_5_tsne_orf1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png) |
-|:--:|
-| *t-distributed stochastic neighbor embedding space in 2-dimension confirms the absence of country as a confounding effect.* |
+![t-distributed stochastic neighbor embedding space in 2-dimension confirms the absence of country as a confounding effect. \label{fig} ](bygeo_gt_5_tsne_orf1ab_w2vsize_1000_epochs_100_perpl_500_k_3.png)
 
 Those analyses were necessary to ensure that the embedding space was reflecting the underlying phylogeny that is usually caught by multiple alignment methods.
 
-Finally, by using the cosine distance we built a distance tree and inspected the resulting clusters formed around SARS-CoV-2.
+Finally, by using the cosine distance we built a distance tree and inspected the resulting clusters formed around SARS-CoV-2, visualized using Interactive Tree Of Life (iTOL) [@letunic_2019_interactive].
 
-| ![](../embeddings/word2vec/phylogenetic_tree_w2vsize_1000_epochs_100_genbank.png) |
-|:--:|
-| *Distance tree from the best model, visualized using Interactive Tree Of Life (iTOL) ([@letunic_2019_interactive]).* |
+![Distance tree from the best model. \label{fig} ](phylogenetic_tree_w2vsize_1000_epochs_100_genbank.png)
 
 As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_2020_identifying], SARS-Co-V, and Bat coronavirus. There are not apparent unexpected neighbours, and the most distant species from SARS-CoV-2 is the porcine _Deltacoronavirus_, which actually has been seen as related to SARS-Co-V in a recent study [@boley_2020_porcine]. A possible explanation for this discrepancy could be attributed to the distance metric used in the evaluation of the tree,  which does not incorporate the "importance" of each node in the tree. More studies are needed to explore a more sensible distance metric, and the resulting best phylogenetic trees.
 
@@ -262,29 +246,21 @@ As expected SARS-CoV-2 has as nearest neighbours: Pangolin coronavirus [@lam_202
 
 Out of 3730 sequences of the common corona virus sequences dataset, with an average AA sequence length of 414, MHCnuggets identified 867,231 epitopes as binding (using a theshold of IC50<500).
 
-| ![](../epitope-clustering/plots/allele_epitope_count.png) |
-|:--:|
-| *Number of putative binding epitopes per allele.* |
+![Number of putative binding epitopes per allele. \label{fig} ](allele_epitope_count.png)
 
 For the alleles, which have predicted binders, the number of strong and weak binders is not evenly distributed. HLA-B15:01, HLA-A11:01, HLA-A23:01, HLA-A30:01, and HLA-A33:01 seem to contain many strong binders, indicating that populations which cover these specific alleles well may respond strongly to vaccines based on the respective epitopes.
 
-| ![](../epitope-clustering/plots/allele_ic50_distribution.png) |
-|:--:|
-| *ic50 distribution of putative binding epitopes per allele.* |
+![ic50 distribution of putative binding epitopes per allele. \label{fig} ](allele_ic50_distribution.png)
 
 The space of predicted epitopes and IC50 values were explored with UMAP clustering. For this purpose, an approach analogous to one hot encoding was used. For each of the original 3730 sequences a vector was generated with length equal to the number of distinct (predicted) allele-epitope pairs. As with one hot encoding, a 0 was used to indicate that a given allele-epitope was not predicted for the sequence. However, instead of using a 1 to indicate the prediction of an allele-epitope pair for a given sequence, the inverse of the IC50 value was used (1/IC50). This was done to include some information about predicted binding affinities. Future work could expand on this by using more direct representations of predicted immunogenicity and screening out epitopes resembling self-peptides.
 
 The UMAP clustering of the predicted epitope space yielded some interesting results that warrant further investigation. In particular, it suggested very little within-species variation of the immune-presentation of envelope and membrane proteins.
 
-| ![](../epitope-clustering/plots/umap_envelope_protein.png) |
-|:--:|
-| *UMAP clustering of envelope proteins* |
+![UMAP clustering of envelope proteins. \label{fig} ](umap_envelope_protein.png)
 
 On the other hand, it suggests a great deal of variation in the immune-presentation of the spike proteins, even within species.
 
-| ![](../epitope-clustering/plots/umap_spike_protein.png) |
-|:--:|
-| *UMAP clustering of spike proteins* |
+![UMAP clustering of spike proteins. \label{fig} ](umap_spike_protein.png)
 
 If confirmed these results would have implications on potential immunotherapies as well as the effectiveness of subunit vaccines against within-species variants of the virus.
 
