@@ -21,9 +21,6 @@ authors:
   - name: Justin Barton
     orcid: 0000-0002-1244-9484
     affiliation: 9
-  - name: Phillip Davis
-    orcid: 0000-0003-3562-4836
-    affiliation: 4
   - name: Andrea Guarracino
     orcid: 0000-0001-9744-131X
     affiliation: 5
@@ -36,11 +33,14 @@ authors:
   - name: Marco Pietrosanto
     orcid: 0000-0001-5129-6065
     affiliation: 5
-  - name: Fotis Psomopoulos
-    orcid: 0000-0002-0222-4273
-    affiliation: 3
   - name: Anastasios Togkousidis
     orcid: 0000-0003-4306-3709
+    affiliation: 3
+   - name: Phillip Davis
+    orcid: 0000-0003-3562-4836
+    affiliation: 4
+   - name: Fotis Psomopoulos
+    orcid: 0000-0002-0222-4273
     affiliation: 3
 
 affiliations:
