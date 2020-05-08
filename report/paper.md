@@ -87,7 +87,7 @@ A global collaborative effort has lead to a number of virus samples being fully 
 
 Given the high similarity of the sequences, both at the aminoacid as well as the nucleotide levels, a key question arises as to how to identify features of interest across the different sequences, such that the underling structure of the viral evolutionary story can be highlighted.
 
-In order to address this question, the machine learning group of the [COVID-19 Biohackathon](https://github.com/virtual-biohackathons/covid-19-bh20), defined the following tasks:
+In order to address this question, the machine learning group of the [COVID-19 BioHackathon](https://github.com/virtual-biohackathons/covid-19-bh20), defined the following tasks:
 
 - Identification of the potential features at the nucleotide level based on the k-mers, for various _k_ values.
 - Identification of the potential features at the aminoacid level, based on the AA frequencies, across various word sizes.
@@ -283,7 +283,7 @@ The cursory analysis of the feature space of predicted epitopes suggests two sal
 
 ## Future work
 
-This report reflect the work initiated within the [COVID-19 Biohackathon of April 2020](https://github.com/virtual-biohackathons/covid-19-bh20) and mostly performed during the event itself. However, there are several interesting outcomes, and the authors are committed in further pursuing them. Specifically:
+This report reflect the work initiated within the [COVID-19 BioHackathon of April 2020](https://github.com/virtual-biohackathons/covid-19-bh20) and mostly performed during the event itself. However, there are several interesting outcomes, and the authors are committed in further pursuing them. Specifically:
 - the report will be considered for a submission to a conference
 - the code produced in the context of this effort will continue to be developed, aiming for a full automated toolkit for feature extraction.
 
@@ -308,6 +308,6 @@ All the work presented here is available in our [GitHub repository](https://gith
 
 # Acknowledgements
 
-This work was done within the [COVID-19 Biohackathon of April 2020](https://github.com/virtual-biohackathons/covid-19-bh20).
+This work was done within the [COVID-19 BioHackathon of April 2020](https://github.com/virtual-biohackathons/covid-19-bh20).
 
 # References
