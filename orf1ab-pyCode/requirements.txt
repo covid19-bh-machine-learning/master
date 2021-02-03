@@ -3,7 +3,7 @@ astor==0.8.1
 attrs==19.3.0
 backcall==0.1.0
 biopython==1.76
-bleach==3.1.4
+bleach==3.3.0
 bokeh==2.0.1
 CacheControl==0.12.6
 cachetools==4.0.0
