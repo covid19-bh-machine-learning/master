@@ -7,7 +7,7 @@ bleach==3.3.0
 bokeh==2.0.1
 CacheControl==0.12.6
 cachetools==4.0.0
-certifi==2023.7.22
+certifi==2024.7.4
 chardet==3.0.4
 colorcet==2.0.2
 cycler==0.10.0
