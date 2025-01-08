@@ -116,7 +116,7 @@ termcolor==1.1.0
 terminado==0.8.3
 testpath==0.4.4
 tornado==6.4.2
-tqdm==4.45.0
+tqdm==4.66.3
 traitlets==4.3.3
 typing-extensions==3.7.4.2
 urllib3==1.26.18
