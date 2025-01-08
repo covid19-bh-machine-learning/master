@@ -128,4 +128,4 @@ wget==3.2
 widgetsnbextension==3.5.1
 wrapt==1.12.1
 xgboost==1.0.2
-zipp==3.1.0
+zipp==3.19.1
