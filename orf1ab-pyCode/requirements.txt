@@ -48,7 +48,7 @@ jupyter-latex-envs==1.4.6
 jupyter-nbextensions-configurator==0.4.1
 jupyterlab==4.4.8
 jupyterlab-server==1.1.0
-Keras==3.13.1
+Keras==3.13.2
 Keras-Applications==1.0.8
 Keras-Preprocessing==1.1.0
 kiwisolver==1.2.0
