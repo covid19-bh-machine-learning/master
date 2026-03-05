@@ -55,7 +55,7 @@ kiwisolver==1.2.0
 lime==0.2.0.0
 lockfile==0.12.2
 lxml==4.9.1
-Markdown==3.2.1
+Markdown==3.8.1
 MarkupSafe==1.1.1
 matplotlib==3.2.1
 mistune==2.0.3
