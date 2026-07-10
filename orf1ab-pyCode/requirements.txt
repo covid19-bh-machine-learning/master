@@ -58,7 +58,7 @@ lxml==6.1.0
 Markdown==3.8.1
 MarkupSafe==1.1.1
 matplotlib==3.2.1
-mistune==3.2.1
+mistune==3.3.0
 msgpack==1.2.1
 natsort==7.0.1
 nbconvert==7.17.1
