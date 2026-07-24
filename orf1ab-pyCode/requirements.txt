@@ -83,7 +83,7 @@ prometheus-client==0.7.1
 prompt-toolkit==3.0.5
 protobuf==5.29.6
 ptyprocess==0.6.0
-pyasn1==0.6.3
+pyasn1==0.6.4
 pyasn1-modules==0.2.8
 pyct==0.4.6
 Pygments==2.15.0
