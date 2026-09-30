@@ -67,7 +67,7 @@ networkx==2.4
 nltk==3.10.3
 notebook==6.4.12
 numpy==1.22.0
-oauthlib==3.1.0
+oauthlib==4.0.0
 opt-einsum==3.2.0
 packaging==20.3
 pandas==1.0.3
