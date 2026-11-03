@@ -59,7 +59,7 @@ Markdown==3.8.1
 MarkupSafe==1.1.1
 matplotlib==3.2.1
 mistune==3.3.3
-msgpack==1.2.1
+msgpack==1.2.3
 natsort==7.0.1
 nbconvert==7.17.2
 nbformat==5.0.5
