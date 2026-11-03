@@ -64,7 +64,7 @@ natsort==7.0.1
 nbconvert==7.17.2
 nbformat==5.0.5
 networkx==2.4
-nltk==3.10.3
+nltk==3.10.4
 notebook==6.4.12
 numpy==1.22.0
 oauthlib==4.0.0
